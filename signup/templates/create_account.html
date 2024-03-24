@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        main{
+            display: flex;
+            flex-direction: column;
+            max-width: 20%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border: 3px solid black;
+            font-size: 2em;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-bottom: 5%;
+        }
+        input{
+            display: block;
+            font-size: 1em;
+            margin-bottom: 5%;
+        }
+
+        button{
+            width: 100%;
+            font-size: 40px;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <form action="" method="post">
+        <h1>Sign Up Here</h1>
+        <label for="username">Name:<input name="username" type="text"></label>
+        <label for="email">Email:<input name="email" type="email"></label>
+        <label for="fixed">Role:<input name="fixed" value="student" type="text" readonly></label>
+        <label for="password">Password:<input name="password" type="password"></label>
+        <label for="confirm">Confirm Password:<input name="confirm" type="password"></label>
+        <button type="submit">Sign Up</button>
+    </form>
+    </main>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Test Portal</title>
+    <style>
+        main{
+            border: 3px solid black;
+            display: inline-block;
+            padding-right: 5%;
+            padding-left: 5%;
+            padding-bottom: 3%;
+            text-align: center;
+        }
+        h1{
+            font-size: 3rem;
+        }
+        button{
+            border: none;
+            background-color: rgb(74, 201, 255);
+            color: white;
+            font-size: 2rem;
+            margin-left: 5%;
+            margin-right: 5%;
+            border-radius: 10%;
+            cursor: pointer;
+        }
+        .btns{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Whats your role</h1>
+        <div class="btns">
+            <button class="teacher">Teacher</button>
+            <button class="student">Student</button>
+        </div>
+        
+    </main>
+    <script>
+        const teacher = document.querySelector(".teacher")
+        const student = document.querySelector(".student")
+        teacher.addEventListener('click',()=>{
+            window.location.href="{% url 'admin:login' %}"
+        })
+        student.addEventListener('click',()=>{
+            window.location.href="{% url 'stud_login' %}"
+        })
+    </script>
+</body>
+</html>
