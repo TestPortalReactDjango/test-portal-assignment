@@ -1,0 +1,17 @@
+# Database
+db.sqlite3
+
+# Env
+.env 
+myvenv
+env_testPortal
+
+# Python
+*.pyc
+*~
+__pycache__
+
+# Visual Studio
+.vscode/
+.history/
+*.code-workspace
