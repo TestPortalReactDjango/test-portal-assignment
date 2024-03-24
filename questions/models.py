@@ -40,3 +40,16 @@ class SingleCorrectQ(models.Model):
     option3=models.CharField(max_length=1)
     option4=models.CharField(max_length=1)
     correctOption=models.CharField(max_length=1)
+
+class MultipleCorrectQ(models.Model):
+    question=models.CharField(max_length=300,blank=False,null=False)
+    option1=models.CharField(max_length=1)
+    option2=models.CharField(max_length=1)
+    option3=models.CharField(max_length=1)
+    option4=models.CharField(max_length=1)
+    correctOptions=models.CharField() #to find a way to define multiple correct answers
+
+class IntegerTypeQ(models.Model):
+    question=models.CharField(max_length=300,blank=False,null=False)
+    correctOption=models.IntegerField(blank=False,null=False)
+
