@@ -43,8 +43,8 @@ INSTALLED_APPS = [
 
     #local apps
     'signup',
-    'student',
-    'teacher',
+    'test',
+    'questions',
 ]
 
 MIDDLEWARE = [

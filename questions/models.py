@@ -1,6 +1,26 @@
 from django.db import models
-from .models import SingleCorrectQ
 # Create your models here.
+
+class SingleCorrectQ(models.Model):
+    question=models.CharField(max_length=300,blank=False,null=False)
+    option1=models.CharField(max_length=1)
+    option2=models.CharField(max_length=1)
+    option3=models.CharField(max_length=1)
+    option4=models.CharField(max_length=1)
+    correctOption=models.CharField(max_length=1)
+
+class MultipleCorrectQ(models.Model):
+    question=models.CharField(max_length=300,blank=False,null=False)
+    option1=models.CharField(max_length=1)
+    option2=models.CharField(max_length=1)
+    option3=models.CharField(max_length=1)
+    option4=models.CharField(max_length=1)
+    correctOptions=models.CharField() #to find a way to define multiple correct answers
+
+class IntegerTypeQ(models.Model):
+    question=models.CharField(max_length=300,blank=False,null=False)
+    correctOption=models.IntegerField(blank=False,null=False)
+
 class qRefTable(models.Model):
     q1=models.ForeignKey(SingleCorrectQ,on_delete=models.CASCADE)
     q2=models.ForeignKey(SingleCorrectQ,on_delete=models.CASCADE)
@@ -32,24 +52,3 @@ class qRefTable(models.Model):
     q28=models.ForeignKey(SingleCorrectQ,on_delete=models.CASCADE)
     q29=models.ForeignKey(SingleCorrectQ,on_delete=models.CASCADE)
     q30=models.ForeignKey(SingleCorrectQ,on_delete=models.CASCADE)
-
-class SingleCorrectQ(models.Model):
-    question=models.CharField(max_length=300,blank=False,null=False)
-    option1=models.CharField(max_length=1)
-    option2=models.CharField(max_length=1)
-    option3=models.CharField(max_length=1)
-    option4=models.CharField(max_length=1)
-    correctOption=models.CharField(max_length=1)
-
-class MultipleCorrectQ(models.Model):
-    question=models.CharField(max_length=300,blank=False,null=False)
-    option1=models.CharField(max_length=1)
-    option2=models.CharField(max_length=1)
-    option3=models.CharField(max_length=1)
-    option4=models.CharField(max_length=1)
-    correctOptions=models.CharField() #to find a way to define multiple correct answers
-
-class IntegerTypeQ(models.Model):
-    question=models.CharField(max_length=300,blank=False,null=False)
-    correctOption=models.IntegerField(blank=False,null=False)
-
