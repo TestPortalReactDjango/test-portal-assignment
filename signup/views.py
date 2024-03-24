@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='homepage')
 def home(request):
     return render(request,'index.html',{})
 
@@ -36,6 +35,8 @@ def new_user(request):
             return HttpResponse("Passwords enetered do not match!")
     return render(request, 'create_account.html',{})
 
+
+@login_required(login_url='stud_login')
 def stud_homepage(request):
     HttpResponse("hello student here are your tests!")
 

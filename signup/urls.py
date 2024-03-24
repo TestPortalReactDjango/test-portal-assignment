@@ -7,5 +7,4 @@ urlpatterns=[
     path('create_account/',views.new_user,name='new_user'),
     path('homepage/',views.stud_homepage,name='homepage'),
     path('logout/',views.Logout_page,name='logout'),
-    path(),
 ]
