@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <style>
+        main{
+            display: flex;
+            flex-direction: column;
+            max-width: 20%;
+            border: 3px solid black;
+            padding: 2%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        label{
+            display: block;
+        }
+        input{
+            display: flex;
+            margin-bottom: 10%;
+            margin-left: 2%;
+            margin-right: 2%;
+        }
+        button{
+            width: 100%;
+        }
+        h1{
+            text-align: center;
+        }
+        a{
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <form action="" method="post"></form>
+        <h1>Login here</h1>
+        {% csrf_token %}
+        
+            <label for="username">Username</label>
+            <input name="username" type="text">
+            <label for="password">Password</label>
+            <input name="pass" type="password">
+            <button class="login" type="submit">Log In</button>
+            <p><a>Create an account</a></p>
+        </form>
+    </main>
+    <script>
+        const create = document.querySelector("p")
+        create.addEventListener('click',()=>{
+            window.location.href="{% url 'new_user' %}"
+        })
+    </script>
+</body>
+</html>
