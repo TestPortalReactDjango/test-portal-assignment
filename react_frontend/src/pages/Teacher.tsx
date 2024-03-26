@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Teacher(){
+const Teacher:React.FC=()=>{
     return(
         <div className='Container'>
             <div className='Box'>
