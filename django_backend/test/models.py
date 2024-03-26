@@ -1,6 +1,6 @@
 from django.db import models
 from questions.models import qRefTable
-from signup.models import user
+from signup.models import User
 
 # Create your models here.
 class test(models.Model):
