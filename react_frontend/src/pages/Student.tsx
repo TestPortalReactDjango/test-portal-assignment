@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Student(){
+const Student:React.FC=()=>{
     return(
         <div className='Container'>
             <div className='Box'>
