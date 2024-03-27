@@ -12,7 +12,7 @@ class test(models.Model):
 
 class testResponse(models.Model):
     test=models.ForeignKey(test, on_delete=models.CASCADE)
-    user=models.ForeignKey(user, on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
     s1=models.CharField()
     s2=models.CharField()
     s3=models.CharField()
@@ -46,7 +46,7 @@ class testResponse(models.Model):
 
 class testResult(models.Model):
     testResponse=models.ForeignKey(testResponse, on_delete=models.CASCADE)
-    user=models.ForeignKey(user, on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
     r1=models.BooleanField()
     r2=models.BooleanField()
     r3=models.BooleanField()
