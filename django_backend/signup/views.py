@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
-from signup.models import Profile,User
-from signup.serializer import UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer
+from .models import Profile,User
+from .serializer import UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics, status
