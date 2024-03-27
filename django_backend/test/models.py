@@ -4,7 +4,8 @@ from signup.models import User
 
 # Create your models here.
 class test(models.Model):
-    testname=models.CharField(max_length=100,blank=False,null=False)
+    testname=models.CharField(
+    max_length=100,blank=False,null=False)
     numberOfQuestion=models.IntegerField()
     startTime=models.DateTimeField()
     endTime=models.DateTimeField()
@@ -13,36 +14,66 @@ class test(models.Model):
 class testResponse(models.Model):
     test=models.ForeignKey(test, on_delete=models.CASCADE)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    s1=models.CharField()
-    s2=models.CharField()
-    s3=models.CharField()
-    s4=models.CharField()
-    s5=models.CharField()
-    s6=models.CharField()
-    s7=models.CharField()
-    s8=models.CharField()
-    s9=models.CharField()
-    s10=models.CharField()
-    s11=models.CharField()
-    s12=models.CharField()
-    s13=models.CharField()
-    s14=models.CharField()
-    s15=models.CharField()
-    s16=models.CharField()
-    s17=models.CharField()
-    s18=models.CharField()
-    s19=models.CharField()
-    s20=models.CharField()
-    s21=models.CharField()
-    s22=models.CharField()
-    s23=models.CharField()
-    s24=models.CharField()
-    s25=models.CharField()
-    s26=models.CharField()
-    s27=models.CharField()
-    s28=models.CharField()
-    s29=models.CharField()
-    s30=models.CharField()
+    s1=models.CharField(max_length=20
+    )
+    s2=models.CharField(max_length=20
+    )
+    s3=models.CharField(max_length=20
+    )
+    s4=models.CharField(max_length=20
+    )
+    s5=models.CharField(max_length=20
+    )
+    s6=models.CharField(max_length=20
+    )
+    s7=models.CharField(max_length=20
+    )
+    s8=models.CharField(max_length=20
+    )
+    s9=models.CharField(max_length=20
+    )
+    s10=models.CharField(max_length=20
+    )
+    s11=models.CharField(max_length=20
+    )
+    s12=models.CharField(max_length=20
+    )
+    s13=models.CharField(max_length=20
+    )
+    s14=models.CharField(max_length=20
+    )
+    s15=models.CharField(max_length=20
+    )
+    s16=models.CharField(max_length=20
+    )
+    s17=models.CharField(max_length=20
+    )
+    s18=models.CharField(max_length=20
+    )
+    s19=models.CharField(max_length=20
+    )
+    s20=models.CharField(max_length=20
+    )
+    s21=models.CharField(max_length=20
+    )
+    s22=models.CharField(max_length=20
+    )
+    s23=models.CharField(max_length=20
+    )
+    s24=models.CharField(max_length=20
+    )
+    s25=models.CharField(max_length=20
+    )
+    s26=models.CharField(max_length=20
+    )
+    s27=models.CharField(max_length=20
+    )
+    s28=models.CharField(max_length=20
+    )
+    s29=models.CharField(max_length=20
+    )
+    s30=models.CharField(max_length=20
+    )
 
 class testResult(models.Model):
     testResponse=models.ForeignKey(testResponse, on_delete=models.CASCADE)
@@ -77,5 +108,5 @@ class testResult(models.Model):
     r28=models.BooleanField()
     r29=models.BooleanField()
     r30=models.BooleanField()
-    score=models.DecimalField()
+    score=models.DecimalField(max_digits=10,decimal_places=10)
     
