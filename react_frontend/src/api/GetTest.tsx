@@ -21,7 +21,7 @@ const GetTest = () => {
     React.useState("");
   useEffect(() => {
     axios
-      .get<Test[]>("", {
+      .get<Test[]>("http://127.0.0.1:8000/test/test/", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -32,7 +32,7 @@ const GetTest = () => {
       })
       .catch((ex) => {
         const error =
-          ex.response.status == 404
+          ex.response.status === 404
             ? "Resource Not Found"
             : "An unexpected error has occurred";
         setError(error);
@@ -60,3 +60,5 @@ const GetTest = () => {
     </div>
   );
 };
+
+export default GetTest;

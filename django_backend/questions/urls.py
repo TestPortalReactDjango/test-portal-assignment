@@ -1,3 +1,6 @@
+from .views import QuestionView
 from django.urls import path
 
-urlpatterns=[]
+urlpatterns =[
+    path("question/",QuestionView.as_view(),name='listCreateQuestion'),
+    ]
