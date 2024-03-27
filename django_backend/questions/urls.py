@@ -1,6 +1,9 @@
-from .views import QuestionView
+from .views import SCQView,MCQView,IQView,QRefTableView
 from django.urls import path
 
 urlpatterns =[
-    path("question/",QuestionView.as_view(),name='listCreateQuestion'),
+    path("single/",SCQView.as_view(),name='listCreateSCQ'),
+    path("multiple/",MCQView.as_view(),name='listCreateMCQ'),
+    path("integer/",IQView.as_view(),name='listCreateIQ'),
+    path("qref/",QRefTableView.as_view(),name='listCreateqRefTable'),
     ]
