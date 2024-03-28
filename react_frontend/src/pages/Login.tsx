@@ -11,7 +11,7 @@ const Login:React.FC=()=>{
             <div className='Box'>
                 <h2>Student</h2>
                 <button><Link to="/login_page">Login as Student</Link></button>
-                <button><Link to="/signup">SignUp as Student</Link></button>
+                <button><Link to="/signup_page">SignUp as Student</Link></button>
             </div>
         </div>
     )

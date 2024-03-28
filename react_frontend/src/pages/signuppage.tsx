@@ -21,7 +21,7 @@ const SignUpPage : React.FC= ()=>{
                 <legend>Confirm Password</legend>
                 <label htmlFor="password2"><input name="password2" type="password" placeholder="Re-enter Password..." /></label>
             </fieldset>
-            <button type="submit">Sign Up Now</button>
+            <button type="submit"><Link to="/loginpage">Sign Up Now</Link></button>
         </form>
     </div>
    )
