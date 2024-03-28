@@ -1,31 +1,64 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
-const SignUpPage : React.FC= ()=>{
-   return( 
-   <div className="signuppage_div">
-        <form action="" method="POST">
-            <fieldset>
-                <legend>Username</legend>
-                <label htmlFor="username"><input name="username" type="text" placeholder="Enter a username..."/></label>
-            </fieldset>
-            <fieldset>
-                <legend>Email</legend>
-                <label htmlFor="email"><input name="email" type="email" placeholder="Enter an email..."/></label>
-            </fieldset>
-            <fieldset>
-                <legend>Password</legend>
-                <label htmlFor="password"><input name="password" type="password" placeholder="Enter password..." /></label>
-            </fieldset>
-            <fieldset>
-                <legend>Confirm Password</legend>
-                <label htmlFor="password2"><input name="password2" type="password" placeholder="Re-enter Password..." /></label>
-            </fieldset>
-            <button type="submit"><Link to="/loginpage">Sign Up Now</Link></button>
-        </form>
-    </div>
-   )
-}
+const SignUpPage: React.FC = () => {
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
 
+    const { registerUser } = useContext(AuthContext);
 
-export default SignUpPage
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        registerUser(email, username, password, password2);
+    };
+
+    return (
+        <div className="signuppage_div">
+            <form onSubmit={handleSubmit}>
+                <fieldset>
+                    <legend>Username</legend>
+                    <input
+                        type="text"
+                        placeholder="Enter a username..."
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </fieldset>
+                <fieldset>
+                    <legend>Email</legend>
+                    <input
+                        type="email"
+                        placeholder="Enter an email..."
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </fieldset>
+                <fieldset>
+                    <legend>Password</legend>
+                    <input
+                        type="password"
+                        placeholder="Enter password..."
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </fieldset>
+                <fieldset>
+                    <legend>Confirm Password</legend>
+                    <input
+                        type="password"
+                        placeholder="Re-enter Password..."
+                        value={password2}
+                        onChange={(e) => setPassword2(e.target.value)}
+                    />
+                </fieldset>
+                <button type="submit">Sign Up Now</button>
+            </form>
+            <p>If you already have an account, <Link to="/loginpage">login here</Link>.</p>
+        </div>
+    );
+};
+
+export default SignUpPage;

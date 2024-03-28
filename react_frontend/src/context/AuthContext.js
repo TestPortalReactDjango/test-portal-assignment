@@ -1,11 +1,11 @@
-import {createContext, useState, useEffect} from "react";
-import jwt_decode from "jwt-decode";
-import {useHistory} from "react-router-dom";
+import { createContext, useState, useEffect } from "react";
+import {jwtDecode} from "jwt-decode"; // Correct import statement
+import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
 const swal = require('sweetalert2')
 
 const AuthContext = createContext();
 
-export default AuthContext
+export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
     const [authTokens, setAuthTokens] = useState(() =>
@@ -17,14 +17,14 @@ export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(() => 
         localStorage.getItem("authTokens")
-            ? jwt_decode(localStorage.getItem("authTokens"))
+            ? jwtDecode(localStorage.getItem("authTokens"))
             : null
     );
 
 
     const [loading, setLoading] = useState(true);
 
-    const history = useHistory();
+    const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
     const loginUser = async (email, password) => {
         const response = await fetch("http://127.0.0.1:8000/api/token/", {
@@ -42,9 +42,9 @@ export const AuthProvider = ({ children }) => {
         if(response.status === 200){
             console.log("Logged In");
             setAuthTokens(data)
-            setUser(jwt_decode(data.access))
+            setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
-            history.push("/")
+            navigate("/") // Use navigate('/') to redirect to the home page
             swal.fire({
                 title: "Login Successful",
                 icon: "success",
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
             console.log(response.status);
             console.log("there was a server issue");
             swal.fire({
-                title: "Username or passowrd does not exists",
+                title: "Username or password does not exist",
                 icon: "error",
                 toast: true,
                 timer: 6000,
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
             })
         })
         if(response.status === 201){
-            history.push("/login")
+            navigate("/login") // Use navigate('/login') to redirect to the login page
             swal.fire({
                 title: "Registration Successful, Login Now",
                 icon: "success",
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
             console.log(response.status);
             console.log("there was a server issue");
             swal.fire({
-                title: "An Error Occured " + response.status,
+                title: "An Error Occurred " + response.status,
                 icon: "error",
                 toast: true,
                 timer: 6000,
@@ -110,9 +110,9 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
-        history.push("/login")
+        navigate("/login") // Use navigate('/login') to redirect to the login page
         swal.fire({
-            title: "YOu have been logged out...",
+            title: "You have been logged out...",
             icon: "success",
             toast: true,
             timer: 6000,
@@ -134,7 +134,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         if (authTokens) {
-            setUser(jwt_decode(authTokens.access))
+            setUser(jwtDecode(authTokens.access))
         }
         setLoading(false)
     }, [authTokens, loading])
@@ -144,5 +144,4 @@ export const AuthProvider = ({ children }) => {
             {loading ? null : children}
         </AuthContext.Provider>
     )
-
 }

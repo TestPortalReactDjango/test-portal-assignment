@@ -4,9 +4,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import {PrivateRoute} from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
-import Login from "./pages/Login";
+// import Login from "./pages/Login";
 import Home from "./pages/Home";
-import Signup from "./pages/Signup";
+// import Signup from "./pages/Signup";
 import StudentUpcomingTest from "./pages/StudentUpcomingTest";
 import StudentPastTest from "./pages/StudentPastTest";
 import StudentProfile from "./pages/StudentProfile";
@@ -19,9 +19,9 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/login_page" element={<LoginPage/>}/>
-        <Route path="/signup" element={<Signup />} />
+        {/* <Route path="/signup" element={<Signup />} /> */}
         <Route path="/studentUpcomingTest" element={<StudentUpcomingTest />} />
         <Route path="/studentPastTest" element={<StudentPastTest />} />
         <Route path="/studentProfile" element={<StudentProfile />} />
