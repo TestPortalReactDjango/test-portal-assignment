@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { response } from "express";
-import { truncateSync } from "fs";
 
 interface Test {
   pk:number;
-  testName: string;
+  testname: string;
   numberOfQuestion: Number;
   startTime: Date;
   endTime: Date;
@@ -18,9 +16,9 @@ const GetTest = () => {
   const [tests, setTests]: [Test[], (tests: Test[]) => void] =
     useState(upcomingTests);
   const [loading, setLoading]: [boolean, (loading: boolean) => void] =
-    React.useState<boolean>(true);
+    useState<boolean>(true);
   const [error, setError]: [string, (error: string) => void] =
-    React.useState("");
+    useState("");
   useEffect(() => {
     axios
       .get<Test[]>("http://127.0.0.1:8000/test/test/", {
@@ -51,9 +49,9 @@ const GetTest = () => {
         <p>{error}</p>
       ) : (
         <ul>
-          {tests.map((test) => (
+          {tests.filter(test=> new Date(test.startTime)>=new Date()).map((test) => (
             <li key={test.pk}>
-              <h3>{test.testName}</h3>
+              <h6 className="font-bold">{test.testname}</h6>
               <p>Total Questions: {test.numberOfQuestion.toString()}</p>
               <p>Start Time: {test.startTime.toString()}</p>
               <p>End Time: {test.endTime.toString()}</p>
