@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { response } from "express";
+import { truncateSync } from "fs";
 
 interface Test {
+  pk:number;
   testName: string;
   numberOfQuestion: Number;
   startTime: Date;
@@ -21,18 +23,20 @@ const GetTest = () => {
     React.useState("");
   useEffect(() => {
     axios
-      .get<Test[]>("", {
+      .get<Test[]>("http://127.0.0.1:8000/test/test/", {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
+          
         },
       })
       .then((response) => {
         setTests(response.data);
+        // console.log(response.data);
         setLoading(false);
       })
       .catch((ex) => {
         const error =
-          ex.response.status == 404
+          ex.response.status === 404
             ? "Resource Not Found"
             : "An unexpected error has occurred";
         setError(error);
@@ -48,7 +52,7 @@ const GetTest = () => {
       ) : (
         <ul>
           {tests.map((test) => (
-            <li>
+            <li key={test.pk}>
               <h3>{test.testName}</h3>
               <p>Total Questions: {test.numberOfQuestion.toString()}</p>
               <p>Start Time: {test.startTime.toString()}</p>
@@ -60,3 +64,5 @@ const GetTest = () => {
     </div>
   );
 };
+
+export default GetTest;
