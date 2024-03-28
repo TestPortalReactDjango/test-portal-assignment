@@ -8,5 +8,4 @@ class TestView(generics.ListCreateAPIView):
     serializer_class=TestSerializer
 
     def get_queryset(self):
-        return test.objects.values_list('testname','numberOfQuestion','startTime','endTime')
-    
+        return test.objects.all()

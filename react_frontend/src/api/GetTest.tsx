@@ -24,10 +24,12 @@ const GetTest = () => {
       .get<Test[]>("http://127.0.0.1:8000/test/test/", {
         headers: {
           "Content-Type": "application/json",
+          // "Access-Control-Allow-Origin":'http://localhost:3000',
         },
       })
       .then((response) => {
         setTests(response.data);
+        console.log(response.data);
         setLoading(false);
       })
       .catch((ex) => {
