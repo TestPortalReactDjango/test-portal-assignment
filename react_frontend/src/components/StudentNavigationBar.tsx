@@ -13,10 +13,16 @@ const NavigationBar: React.FC = () => {
             Upcoming tests
           </Link>
           <Link
-            to="/studentPastTest"
+            to="/studentOngoingTest"
             className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            Past tests
+            Ongoing tests
+          </Link>
+          <Link
+            to="/studentPastAttempts"
+            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Past Attempts
           </Link>
           <Link
             to="/studentProfile"

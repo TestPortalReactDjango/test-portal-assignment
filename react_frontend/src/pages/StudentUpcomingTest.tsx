@@ -1,11 +1,11 @@
 import React from "react";
 import NavigationBar from "../components/StudentNavigationBar";
-import GetText from "../api/GetTest";
+import GetUpcomingText from "../api/GetUpcomingTest";
 const StudentUpcomingTest: React.FC = () => {
   return (
     <div>
       <NavigationBar />
-      <GetText/>
+      <GetUpcomingText/>
     </div>
   );
 };

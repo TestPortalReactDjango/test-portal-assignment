@@ -8,13 +8,14 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import StudentUpcomingTest from "./pages/StudentUpcomingTest";
-import StudentPastTest from "./pages/StudentPastTest";
+import StudentOngoingTest from "./pages/StudentOngoingTest";
+import StudentPastAttempts from "./pages/StudentPastAttempts";
 import StudentProfile from "./pages/StudentProfile";
 import Teacher from "./pages/Teacher";
 import LoginPage from "./pages/Loginpage";
 import SignUpPage from "./pages/signuppage";
 
-const App: React.FC = () => {
+const App:React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -23,7 +24,8 @@ const App: React.FC = () => {
         <Route path="/login_page" element={<LoginPage/>}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/studentUpcomingTest" element={<StudentUpcomingTest />} />
-        <Route path="/studentPastTest" element={<StudentPastTest />} />
+        <Route path="/studentOngoingTest" element={<StudentOngoingTest />} />
+        <Route path="/studentPastAttempts" element={<StudentPastAttempts />} />
         <Route path="/studentProfile" element={<StudentProfile />} />
         <Route path="/teacher" element={<Teacher />} />
         <Route path="/signup_page" element={<SignUpPage/>}/>
