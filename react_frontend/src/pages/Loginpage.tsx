@@ -13,7 +13,7 @@ const LoginPage:React.FC = ()=>{
                     <legend>Password</legend>
                     <input type="password" placeholder="Enter your password..." />
                 </fieldset>
-                <button type="submit">Login</button>
+                <button type="submit"><Link to="/studentUpcomingtest">Login</Link></button>
             </form>
         </div>
     )
