@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Login:React.FC=()=>{
     return(
@@ -9,8 +10,8 @@ const Login:React.FC=()=>{
             </div>
             <div className='Box'>
                 <h2>Student</h2>
-                <button>Login as Student</button>
-                <button>SignUp as Student</button>
+                <button><Link to="/login_page">Login as Student</Link></button>
+                <button><Link to="/signup">SignUp as Student</Link></button>
             </div>
         </div>
     )

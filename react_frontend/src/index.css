@@ -50,3 +50,11 @@ code {
   align-items: center;
   margin-top: 20px;
 }
+ 
+.loginpage_div{
+  display: inline-block;
+  transform: translate(-50%,-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
