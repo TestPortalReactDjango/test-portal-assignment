@@ -35,7 +35,7 @@ const GetTest = () => {
       })
       .catch((ex) => {
         const error =
-          ex.response.status == 404
+          ex.response.status ===404
             ? "Resource Not Found"
             : "Unexpected Error Occured";
         setError(error);
