@@ -1,29 +1,65 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import SCQSerializer,MCQSerializer,IQSerializer,QRefTableSerializer
-from .models import SingleCorrectQ,MultipleCorrectQ,IntegerTypeQ,qRefTable
+from .serializers import SCQSerializer,MCQSerializer,IQSerializer,QRefTableSerializer,QTypeSerializer
+from .models import SingleCorrectQ,MultipleCorrectQ,IntegerTypeQ,qRefTable,qType
 # Create your views here.
 
 class SCQView(generics.ListCreateAPIView):
     serializer_class=SCQSerializer
 
     def get_queryset(self):
-        return SingleCorrectQ.objects.values_list('question','option1','option2','option3','option4')
+        return SingleCorrectQ.objects.all()
     
 class MCQView(generics.ListCreateAPIView):
     serializer_class=MCQSerializer
 
     def get_queryset(self):
-        return MultipleCorrectQ.objects.values_list('question','option1','option2','option3','option4')
+        return MultipleCorrectQ.objects.all()
     
 class IQView(generics.ListCreateAPIView):
     serializer_class=IQSerializer
 
     def get_queryset(self):
-        return IntegerTypeQ.objects.values_list('question')
+        return IntegerTypeQ.objects.all()
     
 class QRefTableView(generics.ListCreateAPIView):
     serializer_class=QRefTableSerializer
 
     def get_queryset(self):
         return qRefTable.objects.all()
+
+class QTypeView(generics.ListCreateAPIView):
+    serializer_class=QTypeSerializer
+
+    def get_queryset(self):
+        return qType.objects.all()
+    
+class SCQRetrieveView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=SCQSerializer
+
+    def get_queryset(self):
+        return SingleCorrectQ.objects.all()
+    
+class MCQRetrieveView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=MCQSerializer
+
+    def get_queryset(self):
+        return MultipleCorrectQ.objects.all()
+    
+class IQRetrieveView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=IQSerializer
+
+    def get_queryset(self):
+        return IntegerTypeQ.objects.all()
+    
+class QRefTableRetrieveView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=QRefTableSerializer
+
+    def get_queryset(self):
+        return qRefTable.objects.all()
+
+class QTypeRetrieveView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=QTypeSerializer
+
+    def get_queryset(self):
+        return qType.objects.all()
