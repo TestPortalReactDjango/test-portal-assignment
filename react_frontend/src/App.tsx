@@ -1,6 +1,5 @@
 import React from "react";
-import "./App.css";
-// import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "../utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
