@@ -1,51 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import GetSCQ from "./getSCQ";
+import GetMCQ from "./getMCQ";
+import GetIQ from "./getIQ";
 
-interface qRefTable {
+
+interface qType {
   pk: number;
-  q1: number;
-  q2: number;
-  q3: number;
-  q4: number;
-  q5: number;
-  q6: number;
-  q7: number;
-  q8: number;
-  q9: number;
-  q10: number;
-  q11: number;
-  q12: number;
-  q13: number;
-  q14: number;
-  q15: number;
-  q16: number;
-  q17: number;
-  q18: number;
-  q19: number;
-  q20: number;
-  q21: number;
-  q22: number;
-  q23: number;
-  q24: number;
-  q25: number;
-  q26: number;
-  q27: number;
-  q28: number;
-  q29: number;
-  q30: number;
+  single: number|null;
+  multiple: number|null;
+integer: number|null;
 }
 
-// const qRef:qRefTable|null=null;
-const GetQRef = () => {
-  const [qRef, setqRef]: [qRefTable | null, (qRef: qRefTable | null) => void] =
-    useState<qRefTable | null>(null);
+interface props {
+  url: string;
+}
+
+const qTypeList:qType[]=[];
+const GetQRef:React.FC<props> = (props) => {
+  const { url } = props;
+  const [qRef, setqRef]: [qType[], (qRef: qType[]) => void] =
+    useState(qTypeList);
   const [loading, setLoading]: [boolean, (loading: boolean) => void] =
     useState<boolean>(true);
   const [error, setError]: [string, (error: string) => void] = useState("");
 
   useEffect(() => {
     axios
-      .get<qRefTable>("", {
+      .get<qType[]>(url, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -70,14 +52,12 @@ const GetQRef = () => {
       <p>{error}</p>
     ) : (
       <ul>
-        {/* {qRef
-          
-          .map((q) => (
-            <li key={test.pk}>
-              
-            </li>
-          ))} */}
+        {qRef.map((QType)=>(<>
+        {QType.single!==null}&&<GetSCQ url={""}/>
+        {QType.multiple!==null}&&<GetMCQ url={""}/>
+        {QType.integer!==null}&&<GetIQ url={""}/></>))}
       </ul>
     )}
   </div>)
 };
+export default GetQRef;
