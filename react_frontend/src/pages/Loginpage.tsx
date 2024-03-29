@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
                 </fieldset>
                 <button type="submit">Login</button>
             </form>
-            <p>If you don't have an account, <Link to="/signup">sign up</Link>.</p>
+            <p>If you don't have an account, <Link to="/signup_page">sign up</Link>.</p>
         </div>
     );
 };

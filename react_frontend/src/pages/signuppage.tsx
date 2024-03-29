@@ -56,7 +56,7 @@ const SignUpPage: React.FC = () => {
                 </fieldset>
                 <button type="submit">Sign Up Now</button>
             </form>
-            <p>If you already have an account, <Link to="/loginpage">login here</Link>.</p>
+            <p>If you already have an account, <Link to="/login_page">login here</Link>.</p>
         </div>
     );
 };
