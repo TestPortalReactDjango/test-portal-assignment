@@ -44,9 +44,9 @@ def testEndPoint(request):
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
-        '/signup/token/',
-        '/signup/register/',
-        '/signup/token/refresh/'
+        '/token/',
+        '/register/',
+        '/token/refresh/'
     ]
     return Response(routes)
 

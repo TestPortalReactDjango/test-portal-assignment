@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const registerUser = async (email, username, password, password2) => {
-        const response = await fetch("http://127.0.0.1:8000/signup/register/", {
+        const response = await fetch("http://127.0.0.1:8000/register/", {
             method: "POST",
             headers: {
                 "Content-Type":"application/json"
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
             })
         })
         if(response.status === 201){
-            navigate("/login") // Use navigate('/login') to redirect to the login page
+            navigate("/login_page") // Use navigate('/login') to redirect to the login page
             swal.fire({
                 title: "Registration Successful, Login Now",
                 icon: "success",
