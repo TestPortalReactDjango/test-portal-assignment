@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import GetQRef from "./getQRef";
 
 interface Test {
   pk: number;
@@ -14,7 +15,7 @@ interface Test {
 
 const OngoingTests: Test[] = [];
 type nullTest = Test | null;
-const GetTest = () => {
+const GetTest:React.FC= () => {
   const [tests, setTests]: [Test[], (tests: Test[]) => void] =
     useState(OngoingTests);
   const [loading, setLoading]: [boolean, (loading: boolean) => void] =
@@ -49,7 +50,7 @@ const GetTest = () => {
       ) : error ? (
         <p>{error}</p>
       ) : selectedTest ? (
-        <p></p>
+        <>{<GetQRef url={""}/>}</>
       ) : (
         <ul>
           {tests
