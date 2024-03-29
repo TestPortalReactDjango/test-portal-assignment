@@ -50,7 +50,7 @@ const GetTest:React.FC= () => {
       ) : error ? (
         <p>{error}</p>
       ) : selectedTest ? (
-        <>{<GetQRef url={""}/>}</>
+        <>{<GetQRef url={`http://127.0.0.1:8000/questions/qrefRetrieve/${selectedTest.qRefTable}`}/>}</>
       ) : (
         <ul>
           {tests

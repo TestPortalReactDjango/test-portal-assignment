@@ -53,9 +53,9 @@ const GetQRef:React.FC<props> = (props) => {
     ) : (
       <ul>
         {qRef.map((QType)=>(<>
-        {QType.single!==null}&&<GetSCQ url={""}/>
-        {QType.multiple!==null}&&<GetMCQ url={""}/>
-        {QType.integer!==null}&&<GetIQ url={""}/></>))}
+        {QType.single!==null}&&<GetSCQ url={`http://127.0.0.1:8000/questions/singleRetrieve/${QType.single}`}/>
+        {QType.multiple!==null}&&<GetMCQ url={`http://127.0.0.1:8000/questions/multipleRetrieve/${QType.multiple}`}/>
+        {QType.integer!==null}&&<GetIQ url={`http://127.0.0.1:8000/questions/integerRetrieve/${QType.integer}`}/></>))}
       </ul>
     )}
   </div>)
