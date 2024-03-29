@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../components/Button';
+// import Button from '../components/Button';
 import { Link as ReactLink } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -12,8 +12,7 @@ const Home: React.FC = () => {
               <p>Teacher</p>
             </div>
             <div className="flex flex-col">
-              <Button text="Login as Teacher" />
-            </div>
+              <button className="bg-blue-500 text-white rounded py-2 px-4 mb-2">Login as Teacher</button>            </div>
           </div>
           <div className="w-1/2 ml-4">
             <div className="mb-2 text-center">
@@ -21,15 +20,11 @@ const Home: React.FC = () => {
             </div>
             <div className="flex flex-col">
               <ReactLink to="/login_page">
-                <Button text="Login as Student" />
+                <button className="bg-blue-500 text-white rounded py-2 px-4 mb-2">Login as Student</button>
               </ReactLink>
               <ReactLink to="/signup_page">
-                <Button text="SignUp as Student" />
+                <button className="bg-blue-500 text-white rounded py-2 px-4 mb-2">SignUp as Student</button>
               </ReactLink>
-
-
-              {/* <ReactLink to="/student-login" component={Button} text="Login as Student" />
-              <ReactLink to="/student-signup" component={Button} text="Signup as Student" /> */}
             </div>
           </div>
         </div>

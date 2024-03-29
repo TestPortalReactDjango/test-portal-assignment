@@ -21,6 +21,8 @@ class IntegerTypeQ(models.Model):
     question=models.CharField(max_length=300,blank=False,null=False)
     correctOption=models.IntegerField(blank=False,null=False)
 
+
+
 class qRefTable(models.Model):
     q1=models.ForeignKey(SingleCorrectQ,on_delete=models.CASCADE, blank=True,
         null=True,related_name='q1_set')

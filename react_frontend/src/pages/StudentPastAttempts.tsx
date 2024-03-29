@@ -1,7 +1,7 @@
 import React from "react";
 import NavigationBar from "../components/StudentNavigationBar";
 
-const StudentPastTest: React.FC = () => {
+const StudentPastAttempts: React.FC = () => {
   return (
     <div>
       <NavigationBar />
@@ -9,4 +9,4 @@ const StudentPastTest: React.FC = () => {
   );
 };
 
-export default StudentPastTest;
+export default StudentPastAttempts;
