@@ -1,9 +1,9 @@
 import React, { useState ,useEffect} from "react";
 import TeacherNavigationBar from "../components/TeacherNavigationBar";
 import Form from "../components/Form";
-import FormSCQ from "../api/createSCQ";
-import FormIQ from "../api/createIQ";
-import FormMCQ from "../api/createMCQ";
+import FormSCQ from "../components/FormSCQ";
+import FormIQ from "../components/FormIQ";
+import FormMCQ from "../components/FormMCQ";
 
 const TeacherCreateQuestion: React.FC = () => {
   const [Type, setType]: [string, (Type: string) => void] = useState("");
