@@ -27,7 +27,7 @@ const FormMCQ = () => {
     string | null,
     (correctOptions: string | null) => void
   ] = useState<string | null>(null);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setQuestion(event.currentTarget.question.value);
     setOption1(event.currentTarget.option1.value);
@@ -43,7 +43,7 @@ const FormMCQ = () => {
         option4 !== null &&
         correctOptions !== null
       ) {
-        CreateMCQ({
+        const response = await CreateMCQ({
           question: question,
           option1: option1,
           option2: option2,
@@ -51,6 +51,9 @@ const FormMCQ = () => {
           option4: option4,
           correctOptions: correctOptions,
         });
+        if ((Number(response) === 200) || (Number(response) === 201)) {
+          window.location.reload();
+        }
       }
 };
   return (
