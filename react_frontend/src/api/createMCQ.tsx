@@ -52,7 +52,6 @@ const FormMCQ = () => {
         <fieldset>
           <legend>Question</legend>
           <input
-            type="question"
             name="question"
             placeholder="Enter the Question: "
           />
