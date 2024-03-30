@@ -1,13 +1,47 @@
 from django.db import models
 # Create your models here.
+SCQ_Choices=(
+    ("1", "1"), 
+    ("2", "2"), 
+    ("3", "3"), 
+    ("4", "4"), 
+)
+MCQ_Choices=(
+    ("1", "1"), 
+    ("2", "2"), 
+    ("3", "3"), 
+    ("4", "4"), 
+    ("5", "1,2"), 
+    ("6", "1,3"), 
+    ("7", "1,4"), 
+    ("8", "2,3"), 
+    ("9", "2,4"), 
+    ("10", "3,4"), 
+    ("11", "1,2,3"), 
+    ("12", "1,2,4"), 
+    ("13", "1,3,4"), 
+    ("14", "2,3,4"), 
+    ("15", "1,2,3,4"),  
+)
 
+IQ_Choices=(
+    ("1", 1), 
+    ("2", 2), 
+    ("3", 3), 
+    ("4", 4), 
+    ("5", 5), 
+    ("6", 6), 
+    ("7", 7), 
+    ("8", 8),
+    ("9", 9),
+)
 class SingleCorrectQ(models.Model):
     question=models.CharField(max_length=300,blank=False,null=False)
     option1=models.CharField(max_length=1)
     option2=models.CharField(max_length=1)
     option3=models.CharField(max_length=1)
     option4=models.CharField(max_length=1)
-    correctOption=models.CharField(max_length=1)
+    correctOption=models.CharField(max_length=1,choices=SCQ_Choices)
 
 class MultipleCorrectQ(models.Model):
     question=models.CharField(max_length=300,blank=False,null=False)
@@ -15,11 +49,11 @@ class MultipleCorrectQ(models.Model):
     option2=models.CharField(max_length=1)
     option3=models.CharField(max_length=1)
     option4=models.CharField(max_length=1)
-    correctOptions=models.CharField(max_length=20) #to find a way to define multiple correct answers
+    correctOptions=models.CharField(max_length=10,choices=MCQ_Choices) #to find a way to define multiple correct answers
 
 class IntegerTypeQ(models.Model):
     question=models.CharField(max_length=300,blank=False,null=False)
-    correctOption=models.IntegerField(blank=False,null=False)
+    correctOption=models.IntegerField(blank=False,null=False,choices=IQ_Choices)
 
 class qType(models.Model):
     single=models.ForeignKey(SingleCorrectQ,on_delete=models.CASCADE,blank=True,null=True)
