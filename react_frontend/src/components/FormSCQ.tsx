@@ -36,7 +36,7 @@ const FormSCQ = () => {
     string | null,
     (correctOption: string | null) => void
   ] = useState<string | null>(null);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setQuestion(event.currentTarget.question.value);
     setOption1(event.currentTarget.option1.value);
@@ -52,7 +52,7 @@ const FormSCQ = () => {
       option4 !== null &&
       correctOption !== null
     ) {
-      CreateSCQ({
+      const response =  await CreateSCQ({
         question: question,
         option1: option1,
         option2: option2,
@@ -60,6 +60,9 @@ const FormSCQ = () => {
         option4: option4,
         correctOption: correctOption,
       });
+      if ((Number(response) === 200) || (Number(response) === 201)) {
+        window.location.reload();
+      }
     }
   };
 
