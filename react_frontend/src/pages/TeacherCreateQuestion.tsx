@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import TeacherNavigationBar from "../components/TeacherNavigationBar";
 import Form from "../components/Form";
+import FormSCQ from "../api/createSCQ";
+import FormIQ from "../api/createIQ";
+import FormMCQ from "../api/createMCQ";
 
 const TeacherCreateQuestion: React.FC = () => {
   const [Type, setType]: [string, (Type: string) => void] = useState("");
+  // const useEffect(()=>,[Type]);
   return (
     <div>
       <TeacherNavigationBar />
       <div className="flex justify-center items-center h-screen bg-blue-200">
-        {Type === ""}&&
+        {Type === ""&&
         <Form
           choices={[
             "Single Option Correct Question Type",
@@ -16,13 +20,13 @@ const TeacherCreateQuestion: React.FC = () => {
             "Integer Answer Question Type",
           ]}
           label={"Choose a Question Type:"}
-          onSubmit={(choice: string) => {
+          submitAction={(choice: string) => {
             setType(choice);
           }}
-        />
-        {Type === "Single Option Correct Question Type"}&&
-        {Type === "Single Option Correct Question Type"}&&
-        {Type === "Single Option Correct Question Type"}&&
+        />}
+        {Type === "Single Option Correct Question Type"&&<FormSCQ/>}
+        {Type === "Multiple Option Correct Question Type"&&<FormMCQ/>}
+        {Type === "Integer Answer Question Type"&&<FormIQ/>}
       </div>
     </div>
   );
