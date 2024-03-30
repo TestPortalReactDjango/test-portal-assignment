@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
-import {jwtDecode} from "jwt-decode"; // Correct import statement
-import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
+import {jwtDecode} from "jwt-decode"; 
+import { useNavigate } from "react-router-dom"; 
 const swal = require('sweetalert2')
 
 const AuthContext = createContext();
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
     const loginUser = async (email, password) => {
-        const response = await fetch("http://127.0.0.1:8000/signup/token/", {
+        const response = await fetch("http://127.0.0.1:8000/token/", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
-            navigate("/") // Use navigate('/') to redirect to the home page
+            navigate("/") 
             swal.fire({
                 title: "Login Successful",
                 icon: "success",
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const registerUser = async (email, username, password, password2) => {
-        const response = await fetch("http://127.0.0.1:8000/register/", {
+        const response = await fetch("http://127.0.0.1:8000/register/",     {
             method: "POST",
             headers: {
                 "Content-Type":"application/json"
