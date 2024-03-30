@@ -49,26 +49,25 @@ const FormSCQ = () => {
       <fieldset>
         <legend>Question</legend>
         <input
-          type="question"
           name="question"
           placeholder="Enter the Question: "
         />
       </fieldset>
       <fieldset>
         <legend>Option1</legend>
-        <input type="option1" name="option1" placeholder="Enter option1:" />
+        <input name="option1" placeholder="Enter option1:" />
       </fieldset>
       <fieldset>
         <legend>Option2</legend>
-        <input type="option1" name="option1" placeholder="Enter option1:" />
+        <input name="option2" placeholder="Enter option1:" />
       </fieldset>
       <fieldset>
         <legend>Option3</legend>
-        <input type="option1" name="option1" placeholder="Enter option1:" />
+        <input name="option3" placeholder="Enter option1:" />
       </fieldset>
       <fieldset>
         <legend>Option4</legend>
-        <input type="option1" name="option1" placeholder="Enter option1:" />
+        <input name="option4" placeholder="Enter option1:" />
       </fieldset>
       <fieldset>
       <label>
