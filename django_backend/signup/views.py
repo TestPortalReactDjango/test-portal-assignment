@@ -9,7 +9,8 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-
+from django.contrib.auth.decorators import login_required
+from rest_framework import permissions
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -20,8 +21,9 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
 
 @api_view(['GET'])
+
 def getRoutes(request):
-    routes = [
+    routes =  [
         '/signup/token/',
         '/signup/register/',
         '/signup/token/refresh/'
