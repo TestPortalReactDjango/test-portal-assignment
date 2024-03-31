@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.response import Response
 from rest_framework import generics
 from .serializers import SCQSerializer,MCQSerializer,IQSerializer,QRefTableSerializer,QTypeSerializer
 from .models import SingleCorrectQ,MultipleCorrectQ,IntegerTypeQ,qRefTable,qType
@@ -33,6 +34,14 @@ class QRefTableView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return qRefTable.objects.all()
+    
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        response_data = {
+            "id": instance.pk,  
+            "message": "QRefTable created successfully"
+        }
+        return Response(response_data, status=201)
 
 permission_classes = [permissions.IsAuthenticated]
 class QTypeView(generics.ListCreateAPIView):
@@ -40,6 +49,14 @@ class QTypeView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return qType.objects.all()
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        response_data = {
+            "id": instance.pk,  
+            "message": "QType created successfully"
+        }
+        return Response(response_data, status=201)
     
 
 permission_classes = [permissions.IsAuthenticated]    
