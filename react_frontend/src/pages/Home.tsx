@@ -12,7 +12,7 @@ const Home: React.FC = () => {
               <p>Teacher</p>
             </div>
             <div className="flex flex-col">
-            <ReactLink to="http://127.0.0.1:8000/admin">
+            <ReactLink to="/login_page">
               <button className="bg-blue-500 text-white rounded py-2 px-4 mb-2">Login as Teacher</button>            
             </ReactLink>
             </div>

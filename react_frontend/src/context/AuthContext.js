@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
-import {jwtDecode} from "jwt-decode"; 
-import { useNavigate } from "react-router-dom"; 
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 const swal = require('sweetalert2')
 
 const AuthContext = createContext();
@@ -13,9 +13,9 @@ export const AuthProvider = ({ children }) => {
             ? JSON.parse(localStorage.getItem("authTokens"))
             : null
     );
-    
 
-    const [user, setUser] = useState(() => 
+
+    const [user, setUser] = useState(() =>
         localStorage.getItem("authTokens")
             ? jwtDecode(localStorage.getItem("authTokens"))
             : null
@@ -29,8 +29,8 @@ export const AuthProvider = ({ children }) => {
     const loginUser = async (email, password) => {
         const response = await fetch("http://127.0.0.1:8000/token/", {
             method: "POST",
-            headers:{
-                "Content-Type":"application/json"
+            headers: {
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 email, password
@@ -39,12 +39,16 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json()
         console.log(data);
 
-        if(response.status === 200){
+        if (response.status === 200) {
             console.log("Logged In");
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
-            navigate("/") 
+            const isStaff = user.is_staff;
+            console.log(user)
+            console.log(isStaff);
+            navigate(isStaff ? "/teacherCreateQuestion" : "/studentUpcomingTest");
+
             swal.fire({
                 title: "Login Successful",
                 icon: "success",
@@ -55,7 +59,7 @@ export const AuthProvider = ({ children }) => {
                 showConfirmButton: false,
             })
 
-        } else {    
+        } else {
             console.log(response.status);
             console.log("there was a server issue");
             swal.fire({
@@ -71,17 +75,17 @@ export const AuthProvider = ({ children }) => {
     }
 
     const registerUser = async (email, username, password, password2) => {
-        const response = await fetch("http://127.0.0.1:8000/register/",     {
+        const response = await fetch("http://127.0.0.1:8000/register/", {
             method: "POST",
             headers: {
-                "Content-Type":"application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 email, username, password, password2
             })
         })
-        if(response.status === 201){
-            navigate("/login_page") // Use navigate('/login') to redirect to the login page
+        if (response.status === 201) {
+            navigate("/login_page")
             swal.fire({
                 title: "Registration Successful, Login Now",
                 icon: "success",
@@ -110,7 +114,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
-        navigate("/login") // Use navigate('/login') to redirect to the login page
+        navigate("/login")
         swal.fire({
             title: "You have been logged out...",
             icon: "success",
@@ -123,7 +127,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const contextData = {
-        user, 
+        user,
         setUser,
         authTokens,
         setAuthTokens,
