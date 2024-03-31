@@ -35,20 +35,19 @@ export const AuthProvider = ({ children }) => {
             body: JSON.stringify({
                 email, password
             })
-        })
-        const data = await response.json()
-        console.log(data);
-
+        });
+        const data = await response.json();
+    
         if (response.status === 200) {
             console.log("Logged In");
-            setAuthTokens(data)
-            setUser(jwtDecode(data.access))
-            localStorage.setItem("authTokens", JSON.stringify(data))
-            const isStaff = user.is_staff;
-            console.log(user)
-            console.log(isStaff);
-            navigate(isStaff ? "/teacherCreateQuestion" : "/studentUpcomingTest");
-
+            setAuthTokens(data); // Save tokens first
+            const decodedUser = jwtDecode(data.access); // Decode user data
+            setUser(decodedUser); // Update user state
+            localStorage.setItem("authTokens", JSON.stringify(data)); // Persist tokens
+            console.log(decodedUser);
+            // Use decodedUser directly here for routing
+            navigate(decodedUser.is_staff ? "/teacherCreateQuestion" : "/studentUpcomingTest");
+    
             swal.fire({
                 title: "Login Successful",
                 icon: "success",
@@ -57,11 +56,10 @@ export const AuthProvider = ({ children }) => {
                 position: 'top-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
-            })
-
+            });
+    
         } else {
-            console.log(response.status);
-            console.log("there was a server issue");
+            console.log("There was a server issue");
             swal.fire({
                 title: "Username or password does not exist",
                 icon: "error",
@@ -70,10 +68,10 @@ export const AuthProvider = ({ children }) => {
                 position: 'top-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
-            })
+            });
         }
-    }
-
+    };
+    
     const registerUser = async (email, username, password, password2) => {
         const response = await fetch("http://127.0.0.1:8000/register/", {
             method: "POST",
