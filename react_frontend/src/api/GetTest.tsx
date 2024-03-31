@@ -15,7 +15,7 @@ interface Test {
 
 const OngoingTests: Test[] = [];
 type nullTest = Test | null;
-const GetTest:React.FC= () => {
+const GetTest: React.FC = () => {
   const [tests, setTests]: [Test[], (tests: Test[]) => void] =
     useState(OngoingTests);
   const [loading, setLoading]: [boolean, (loading: boolean) => void] =
@@ -36,7 +36,7 @@ const GetTest:React.FC= () => {
       })
       .catch((ex) => {
         const error =
-          ex.response.status ===404
+          ex.response.status === 404
             ? "Resource Not Found"
             : "Unexpected Error Occured";
         setError(error);
@@ -50,7 +50,13 @@ const GetTest:React.FC= () => {
       ) : error ? (
         <p>{error}</p>
       ) : selectedTest ? (
-        <>{<GetQRef url={`http://127.0.0.1:8000/questions/qrefRetrieve/${selectedTest.qRefTable}`}/>}</>
+        <>
+          {
+            <GetQRef
+              url={`http://127.0.0.1:8000/questions/qrefRetrieve/${selectedTest.qRefTable}`}
+            />
+          }
+        </>
       ) : (
         <ul>
           {tests
@@ -66,10 +72,14 @@ const GetTest:React.FC= () => {
                 <p>Start Time: {test.startTime.toString()}</p>
                 <p>End Time: {test.endTime.toString()}</p>
                 <Link to="">
-                  <Button
-                    text="Start Test"
-                    onClick={() => setTest(test)}
-                  ></Button>
+                  <button
+                    className="bg-blue-500 text-white rounded py-2 px-4 mb-2"
+                    onClick={() => {
+                      setTest(test);
+                    }}
+                  >
+                    Start Test
+                  </button>
                 </Link>
               </li>
             ))}
@@ -78,7 +88,5 @@ const GetTest:React.FC= () => {
     </div>
   );
 };
-
-
 
 export default GetTest;
