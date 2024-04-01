@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Form from "../components/Form";
 
 interface SCQ {
   pk: number;
@@ -17,10 +18,10 @@ interface props {
 
 const GetSCQ: React.FC<props> = (props) => {
   const { url } = props;
-  const [question, setQuestion]: [SCQ|null, (question: SCQ|null) => void] = useState<SCQ|null>(null);
-  const [loading, setLoading]: [boolean, (loading: boolean) => void] =
-    useState<boolean>(true);
-  const [error, setError]: [string, (error: string) => void] = useState("");
+  const [question, setQuestion] = useState<SCQ | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+
   useEffect(() => {
     axios
       .get<SCQ>(url, {
@@ -34,13 +35,14 @@ const GetSCQ: React.FC<props> = (props) => {
       })
       .catch((ex) => {
         const error =
-          ex.response.status == 404
+          ex.response.status === 404
             ? "Resource Not Found"
-            : "Unexpected Error Occured";
+            : "Unexpected Error Occurred";
         setError(error);
         setLoading(false);
-      })
+      });
   }, []);
+
   return (
     <div>
       {loading ? (
@@ -48,18 +50,29 @@ const GetSCQ: React.FC<props> = (props) => {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <li key={question?.pk}>
-          <p>Question Type: Single Option Correct Question Type</p>
-          <p>Question:{question?.question}</p>
-          <p>A.:{question?.option1}</p>
-          <p>B.:{question?.option2}</p>
-          <p>C.:{question?.option3}</p>
-          <p>D.:{question?.option4}</p>
-        </li>
-      ) }
+        question && (
+          <li key={question.pk}>
+            <p>Question Type: Single Option Correct Question Type</p>
+            <p>Question: {question.question}</p>
+            <p>A: {question.option1}</p>
+            <p>B: {question.option2}</p>
+            <p>C: {question.option3}</p>
+            <p>D: {question.option4}</p>
+            <Form
+              choices={[
+                question.option1,
+                question.option2,
+                question.option3,
+                question.option4,
+              ]}
+              label={"Answer:"}
+              submitAction={(choice: string) => {}}
+            />
+          </li>
+        )
+      )}
     </div>
   );
-  
 };
-export default GetSCQ;
 
+export default GetSCQ;

@@ -16,63 +16,63 @@ class testResponse(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)            
     s1=models.CharField(max_length=20
     )
-    s2=models.CharField(max_length=20
+    s2=models.CharField(max_length=10
     )
-    s3=models.CharField(max_length=20
+    s3=models.CharField(max_length=10
     )
-    s4=models.CharField(max_length=20
+    s4=models.CharField(max_length=10
     )
-    s5=models.CharField(max_length=20
+    s5=models.CharField(max_length=10
     )
-    s6=models.CharField(max_length=20
+    s6=models.CharField(max_length=10
     )
-    s7=models.CharField(max_length=20
+    s7=models.CharField(max_length=10
     )
-    s8=models.CharField(max_length=20
+    s8=models.CharField(max_length=10
     )
-    s9=models.CharField(max_length=20
+    s9=models.CharField(max_length=10
     )
-    s10=models.CharField(max_length=20
+    s10=models.CharField(max_length=10
     )
-    s11=models.CharField(max_length=20
+    s11=models.CharField(max_length=10
     )
-    s12=models.CharField(max_length=20
+    s12=models.CharField(max_length=10
     )
-    s13=models.CharField(max_length=20
+    s13=models.CharField(max_length=10
     )
-    s14=models.CharField(max_length=20
+    s14=models.CharField(max_length=10
     )
-    s15=models.CharField(max_length=20
+    s15=models.CharField(max_length=10
     )
-    s16=models.CharField(max_length=20
+    s16=models.CharField(max_length=10
     )
-    s17=models.CharField(max_length=20
+    s17=models.CharField(max_length=10
     )
-    s18=models.CharField(max_length=20
+    s18=models.CharField(max_length=10
     )
-    s19=models.CharField(max_length=20
+    s19=models.CharField(max_length=10
     )
-    s20=models.CharField(max_length=20
+    s20=models.CharField(max_length=10
     )
-    s21=models.CharField(max_length=20
+    s21=models.CharField(max_length=10
     )
-    s22=models.CharField(max_length=20
+    s22=models.CharField(max_length=10
     )
-    s23=models.CharField(max_length=20
+    s23=models.CharField(max_length=10
     )
-    s24=models.CharField(max_length=20
+    s24=models.CharField(max_length=10
     )
-    s25=models.CharField(max_length=20
+    s25=models.CharField(max_length=10
     )
-    s26=models.CharField(max_length=20
+    s26=models.CharField(max_length=10
     )
-    s27=models.CharField(max_length=20
+    s27=models.CharField(max_length=10
     )
-    s28=models.CharField(max_length=20
+    s28=models.CharField(max_length=10
     )
-    s29=models.CharField(max_length=20
+    s29=models.CharField(max_length=10
     )
-    s30=models.CharField(max_length=20
+    s30=models.CharField(max_length=10
     )
 
 class testResult(models.Model):
