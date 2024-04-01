@@ -13,7 +13,7 @@ class test(models.Model):
 
 class testResponse(models.Model):
     test=models.ForeignKey(test, on_delete=models.CASCADE)
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)            
     s1=models.CharField(max_length=20
     )
     s2=models.CharField(max_length=20
