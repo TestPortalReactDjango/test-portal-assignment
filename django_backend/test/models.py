@@ -128,7 +128,8 @@ class testResult(models.Model):
     score=models.DecimalField(max_digits=10,decimal_places=10)
     
 
-class Testresult(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
-    test=models.ForeignKey(test, on_delete = models.CASCADE)
-    result  =models.IntegerField(default=0)
+class Marks(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    test = models.ForeignKey(test, on_delete = models.CASCADE)
+    result = models.IntegerField(default=0)
+

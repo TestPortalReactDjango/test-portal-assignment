@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import permissions
 import json
 from django.db.models import Q
+from rest_framework.response import Response
 # Create your views here.
 
 
@@ -40,7 +41,7 @@ def response_insert(self,request):
     # user_response.save()
     return data
 
-@api_view(['GET'])
+@api_view(['POST'])
 def result(request):
     user = request.user
     test = request.query_params.get('test')
@@ -58,7 +59,6 @@ def result(request):
                 values_list.append(value) 
                 if value is not None and not field_name:
                     field_name, non_null_value = field, value
-            
             return field_name, non_null_value, values_list
         return None, None, values_list
     field_name, value, values_list = get_field_info_and_values(qt)
@@ -116,8 +116,19 @@ def result(request):
             qid=qid,
             tf=False
             )
+    return  None
 
-    
+@api_view(['POST'])
+def marks(request):
+    user = request.user
+    test = request.query_params.get('test')
+    tf_list = list(testresult.objects.values_list('tf', flat=True).get(user=user,test=test))
+    for i in tf_list:
+        if (i==True):
+            marksplus = Marks.objects.create(
+                result = (result + 4)
+            )
+    return Response({"marks" : marksplus})
 
 
     #     print(f"The first non-null field is {field_name} with a value of {value}.")
