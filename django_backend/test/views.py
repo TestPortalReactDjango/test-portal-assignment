@@ -80,6 +80,78 @@ def result(request):
             qid=qid,
             tf=False
             )
+    
+    elif (field_name=='multiple'):
+        correct_option = MultipleCorrectQ.objects.values_list('correctOption', flat=True).get(pk=qid)
+        sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
+        if (correct_option== str(sol_value)):
+            user_response = testresult.objects.create(
+            user=user,
+            test=test,
+            qid=qid,
+            tf=True
+            )
+        else:
+            user_response = testresult.objects.create(
+            user=user,
+            test=test,
+            qid=qid,
+            tf=False
+            )
+
+    elif (field_name=='integer'):
+        correct_option = IntegerTypeQ.objects.values_list('correctOption', flat=True).get(pk=qid)
+        sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
+        if (correct_option== int(sol_value)):
+            user_response = testresult.objects.create(
+            user=user,
+            test=test,
+            qid=qid,
+            tf=True
+            )
+        else:
+            user_response = testresult.objects.create(
+            user=user,
+            test=test,
+            qid=qid,
+            tf=False
+            )
+
+    
+
+
+    #     print(f"The first non-null field is {field_name} with a value of {value}.")
+    #     print(f"Values List: {values_list}")
+    # elif(field_name=='multiple'):
+    #     print()
+    # elif(field_name=='integer'):
+    #     print("No non-null values found or the record does not exist.")
+
+
+    #     field_name, value, values_list = get_field_info_and_values(qt=qt)
+    #     if field_name:
+    #         print(f"The first non-null field is {field_name} with a value of {value}.")
+    #         print(f"Values List: {values_list}")
+    #     else:
+    #         print("No non-null values found or the record does not exist.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
     #     print(f"The first non-null field is {field_name} with a value of {value}.")
