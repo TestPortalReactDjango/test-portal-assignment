@@ -86,6 +86,12 @@ class userresponses(models.Model):
     qid = models.IntegerField(default=0)
     sol=models.CharField(max_length=100,default='')
 
+class testresult(models.Model):
+    user=models.ForeignKey(User,on_delete = models.CASCADE)
+    test=models.ForeignKey(test,on_delete=models.CASCADE)
+    qid=models.ForeignKey(default=0)
+    tf = models.BooleanField(default=False)
+
 class testResult(models.Model):
     testResponse=models.ForeignKey(testResponse, on_delete=models.CASCADE)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
