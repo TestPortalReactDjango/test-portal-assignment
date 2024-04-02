@@ -1,5 +1,9 @@
 from django.db import models
 from questions.models import qRefTable
+from questions.models import qType
+from questions.models import MultipleCorrectQ
+from questions.models import IntegerTypeQ
+from questions.models import SingleCorrectQ
 from signup.models import User
 
 # Create your models here.
@@ -13,67 +17,74 @@ class test(models.Model):
 
 class testResponse(models.Model):
     test=models.ForeignKey(test, on_delete=models.CASCADE)
-    user=models.ForeignKey(User, on_delete=models.CASCADE)            
-    s1=models.CharField(max_length=20
+    user=models.ForeignKey(User, on_delete=models.CASCADE)       
+    s1=models.CharField(max_length=20, default=''
     )
-    s2=models.CharField(max_length=10
+    s2=models.CharField(max_length=10,default=''
     )
-    s3=models.CharField(max_length=10
+    s3=models.CharField(max_length=10,default=''
     )
-    s4=models.CharField(max_length=10
+    s4=models.CharField(max_length=10,default=''
     )
-    s5=models.CharField(max_length=10
+    s5=models.CharField(max_length=10,default=''
     )
-    s6=models.CharField(max_length=10
+    s6=models.CharField(max_length=10,default=''
     )
-    s7=models.CharField(max_length=10
+    s7=models.CharField(max_length=10,default=''
     )
-    s8=models.CharField(max_length=10
+    s8=models.CharField(max_length=10,default=''
     )
-    s9=models.CharField(max_length=10
+    s9=models.CharField(max_length=10,default=''
     )
-    s10=models.CharField(max_length=10
+    s10=models.CharField(max_length=10,default=''
     )
-    s11=models.CharField(max_length=10
+    s11=models.CharField(max_length=10,default=''
     )
-    s12=models.CharField(max_length=10
+    s12=models.CharField(max_length=10,default=''
     )
-    s13=models.CharField(max_length=10
+    s13=models.CharField(max_length=10,default=''
     )
-    s14=models.CharField(max_length=10
+    s14=models.CharField(max_length=10,default=''
     )
-    s15=models.CharField(max_length=10
+    s15=models.CharField(max_length=10,default=''
     )
-    s16=models.CharField(max_length=10
+    s16=models.CharField(max_length=10,default=''
     )
-    s17=models.CharField(max_length=10
+    s17=models.CharField(max_length=10,default=''
     )
-    s18=models.CharField(max_length=10
+    s18=models.CharField(max_length=10,default=''
     )
-    s19=models.CharField(max_length=10
+    s19=models.CharField(max_length=10,default=''
     )
-    s20=models.CharField(max_length=10
+    s20=models.CharField(max_length=10,default=''
     )
-    s21=models.CharField(max_length=10
+    s21=models.CharField(max_length=10,default=''
     )
-    s22=models.CharField(max_length=10
+    s22=models.CharField(max_length=10,default=''
     )
-    s23=models.CharField(max_length=10
+    s23=models.CharField(max_length=10,default=''
     )
-    s24=models.CharField(max_length=10
+    s24=models.CharField(max_length=10,default=''
     )
-    s25=models.CharField(max_length=10
+    s25=models.CharField(max_length=10,default=''
     )
-    s26=models.CharField(max_length=10
+    s26=models.CharField(max_length=10,default=''
     )
-    s27=models.CharField(max_length=10
+    s27=models.CharField(max_length=10,default=''
     )
-    s28=models.CharField(max_length=10
+    s28=models.CharField(max_length=10,default=''
     )
-    s29=models.CharField(max_length=10
+    s29=models.CharField(max_length=10,default=''
     )
-    s30=models.CharField(max_length=10
+    s30=models.CharField(max_length=10,default=''
     )
+
+class userresponses(models.Model):
+    user=models.ForeignKey(User,on_delete = models.CASCADE)
+    test=models.ForeignKey(test, on_delete = models.CASCADE)
+    qt=models.CharField(max_length=100,default='')
+    qid = models.IntegerField(default=0)
+    sol=models.CharField(max_length=100,default='')
 
 class testResult(models.Model):
     testResponse=models.ForeignKey(testResponse, on_delete=models.CASCADE)
@@ -110,3 +121,8 @@ class testResult(models.Model):
     r30=models.BooleanField()
     score=models.DecimalField(max_digits=10,decimal_places=10)
     
+
+class Testresult(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    test=models.ForeignKey(test, on_delete = models.CASCADE)
+    result  =models.IntegerField(default=0)
