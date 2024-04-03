@@ -4,7 +4,7 @@ from rest_framework import generics
 from .serializers import *
 from .models import test
 from .models import userresponses
-from .models import Testresult
+# from .models import Testresult
 from test.models import *
 from questions.models import *
 from django.contrib.auth.decorators import login_required
@@ -13,6 +13,7 @@ import json
 from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.serializers import ValidationError
 # Create your views here.
 
 
@@ -125,79 +126,27 @@ def result(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
-def marks(request):
+def calculate_marks(request):
+    # """Calculates marks based on user and test data."""
+
     serializer = marksSerializer(data=request.data)
-    user = serializer.get('user')
-    test = serializer.get('test')
-    tf_list = list(testresult.objects.values_list('tf', flat=True).get(user=user,test=test))
-    for i in tf_list:
-        if (i==True):
-            marksplus = Marks.objects.create(
-                result = (result + 4)
-            )
-    return Response({"marks" : marksplus})
 
+    try:
+        serializer.is_valid(raise_exception=True)
+    except ValidationError as e:
+        return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
 
-    #     print(f"The first non-null field is {field_name} with a value of {value}.")
-    #     print(f"Values List: {values_list}")
-    # elif(field_name=='multiple'):
-    #     print()
-    # elif(field_name=='integer'):
-    #     print("No non-null values found or the record does not exist.")
+    user = serializer.validated_data['user']
+    test = serializer.validated_data['test']
 
+    # Check if user and test exist (optional, customize logic)
+    if not User.objects.filter(pk=user.id).exists() or not testresult.objects.filter(pk=test.id).exists():
+        return Response({'error': 'Invalid user or test ID'}, status=status.HTTP_400_BAD_REQUEST)
 
-    #     field_name, value, values_list = get_field_info_and_values(qt=qt)
-    #     if field_name:
-    #         print(f"The first non-null field is {field_name} with a value of {value}.")
-    #         print(f"Values List: {values_list}")
-    #     else:
-    #         print("No non-null values found or the record does not exist.")
+    tf_list = list(testresult.objects.filter(user=user, test=test).values_list('tf', flat=True))
+    total_marks = sum(mark for mark in tf_list if mark)  # Calculate total marks from True values
 
+    new_marks = Marks.objects.create(user=user, test=test, result=total_marks)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-    #     print(f"The first non-null field is {field_name} with a value of {value}.")
-    #     print(f"Values List: {values_list}")
-    # elif(field_name=='multiple'):
-    #     print()
-    # elif(field_name=='integer'):
-    #     print("No non-null values found or the record does not exist.")
-
-
-    #     field_name, value, values_list = get_field_info_and_values(qt=qt)
-    #     if field_name:
-    #         print(f"The first non-null field is {field_name} with a value of {value}.")
-    #         print(f"Values List: {values_list}")
-    #     else:
-    #         print("No non-null values found or the record does not exist.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return Response({"marks": new_marks.result})    
 
