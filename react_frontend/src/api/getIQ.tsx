@@ -6,16 +6,44 @@ interface IQ {
   question: string;
   correctOption: number;
 }
+
 interface props {
   url: string;
+  submitUrl: string;
 }
 
 const GetIQ: React.FC<props> = (props) => {
-  const { url } = props;
-  const [question, setQuestion]: [IQ|null, (question: IQ|null) => void] = useState<IQ|null>(null);
-  const [loading, setLoading]: [boolean, (loading: boolean) => void] =
-    useState<boolean>(true);
-  const [error, setError]: [string, (error: string) => void] = useState("");
+  const { url, submitUrl } = props;
+  const [question, setQuestion] = useState<IQ | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [userAnswer, setUserAnswer] = useState(""); // String for user input
+
+  const submitAnswer = async () => {
+    if (!userAnswer) {
+      alert("Please enter your answer before submitting.");
+      return;
+    }
+
+    const parsedAnswer = parseInt(userAnswer, 10); // Parse user input to integer
+    if (isNaN(parsedAnswer)) {
+      alert("Please enter a valid integer answer.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(submitUrl, {
+        questionId: question?.pk,
+        userAnswer: parsedAnswer,
+      });
+      console.log("Submit Response:", response.data); // Handle response here
+      // You can display a success message, handle errors, etc.
+    } catch (error) {
+      console.error("Submit Error:", error);
+      // Handle errors appropriately, e.g., display an error message
+    }
+  };
+
   useEffect(() => {
     axios
       .get<IQ>(url, {
@@ -29,13 +57,14 @@ const GetIQ: React.FC<props> = (props) => {
       })
       .catch((ex) => {
         const error =
-          ex.response.status == 404
+          ex.response.status === 404
             ? "Resource Not Found"
-            : "Unexpected Error Occured";
+            : "Unexpected Error Occurred";
         setError(error);
         setLoading(false);
-      })
+      });
   }, []);
+
   return (
     <div>
       {loading ? (
@@ -43,14 +72,22 @@ const GetIQ: React.FC<props> = (props) => {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <li key={question?.pk}>
-          <p>Question Type: Integer Type Answer Question Type</p>
-          <p>Question:{question?.question}</p>
-        </li>
+        question && (
+          <li key={question.pk}>
+            <p>Question Type: Integer Input Question Type</p>
+            <p>Question: {question.question}</p>
+            <input
+              type="number"
+              value={userAnswer}
+              onChange={(e) => setUserAnswer(e.target.value)}
+              placeholder="Enter your answer"
+            />
+            <button onClick={submitAnswer}>Submit Answer</button>
+          </li>
+        )
       )}
     </div>
   );
-  
 };
-export default GetIQ;
 
+export default GetIQ;

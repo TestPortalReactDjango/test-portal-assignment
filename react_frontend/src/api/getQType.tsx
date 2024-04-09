@@ -13,11 +13,12 @@ interface qType {
 
 interface props {
   url: string;
+  submitUrl: string; 
 }
 
 
 const GetQType: React.FC<props> = (props) => {
-    const {url}=props;
+    const {url,submitUrl}=props;
   const [QType,setQType]:[qType|null,(QType:qType|null)=>void]=useState<qType|null>(null);
   const [loading, setLoading]: [boolean, (loading: boolean) => void] =
     useState<boolean>(true);
@@ -54,16 +55,19 @@ const GetQType: React.FC<props> = (props) => {
             {QType.single !== null && (
               <GetSCQ
                 url={`http://127.0.0.1:8000/questions/singleRetrieve/${QType.single}`}
+                submitUrl={submitUrl}
               />
             )}
             {QType.multiple !== null && (
               <GetMCQ
                 url={`http://127.0.0.1:8000/questions/multipleRetrieve/${QType.multiple}`}
+                submitUrl={submitUrl}
               />
             )}
             {QType.integer !== null && (
               <GetIQ
                 url={`http://127.0.0.1:8000/questions/integerRetrieve/${QType.integer}`}
+                submitUrl={submitUrl}
               />
             )}
           </ul>
