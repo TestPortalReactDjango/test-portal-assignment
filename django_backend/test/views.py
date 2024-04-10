@@ -17,6 +17,18 @@ from rest_framework.serializers import ValidationError
 # Create your views here.
 
 
+from django.shortcuts import render
+# from .models import Test  # Assuming your model class is named Test
+
+class ListAllTestsAPIView(generics.ListAPIView):
+    def get_queryset(self):
+        queryset = test.objects.all()  # Retrieve all test objects by default
+        return queryset
+
+    serializer_class = TestSerializer 
+
+
+
 permission_classes = [permissions.IsAuthenticated]
 class TestView(generics.ListCreateAPIView):
     serializer_class=TestSerializer
