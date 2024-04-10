@@ -15,7 +15,7 @@ const CreateTest= async (Test:Test): Promise<number> =>{
   try {
     const response = await axios
     .post(
-      "http://127.0.0.1:8000/test/test/",
+      "http://127.0.0.1:8000/test/testcreate/",
       {testname:testname,
         numberOfQuestion:numberOfQuestion,
         startTime:startTime,
