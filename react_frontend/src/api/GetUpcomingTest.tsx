@@ -40,10 +40,10 @@ const GetUpcomingTests = () => {
 
     fetchUpcomingTests();
   }, []);
+  // const current_time = new Date();
 
-  const upcomingTests = tests
-  // .filter((test) => new Date(test.startTime) > new Date());
-  // console.log(upcomingTests) 
+  const upcomingTests = tests.filter((test) => new Date(test.startTime) > new Date());
+  console.log(upcomingTests) 
   return (
     <div className="student-upcoming-test">
       {loading ? (

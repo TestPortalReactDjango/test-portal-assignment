@@ -7,7 +7,7 @@ import GetQRef from "./getQRef";
 interface Test {
   pk: number;
   testname: string;
-  numberOfQuestion: Number;
+  numberOfQuestion: number;
   startTime: Date;
   endTime: Date;
   qRefTable: number;
@@ -25,7 +25,7 @@ const GetTest: React.FC = () => {
     useState<nullTest>(null);
   useEffect(() => {
     axios
-      .get<Test[]>("http://127.0.0.1:8000/test/test/", {
+      .get<Test[]>("http://127.0.0.1:8000/test/api/tests/", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -43,6 +43,7 @@ const GetTest: React.FC = () => {
         setLoading(false);
       });
   }, []);
+  console.log(tests)
   return (
     <div>
       {loading ? (
