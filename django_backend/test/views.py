@@ -37,23 +37,13 @@ class TestView(generics.ListCreateAPIView):
         return test.objects.all()
     
 @api_view(['POST'])
-def response_insert(self,request):
-    data=json.loads(request.body)
-    user = data.get('user')
-    test=data.get('test')
-    qid=data.get('qid')
-    qt = data.get('qt')
-    sol=data.get('sol')
-    
-    user_response = userresponses.objects.create(
-        user=user,
-        test=test,
-        qt=qt,
-        sol=sol,
-        qid=qid
-    )
-    # user_response.save()
-    return data
+def response_insert(request):
+    # Instead of manually loading the JSON, we use request.data with DRF
+    serializer = userresponsesSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()  # Save the instance if the data is valid
+        return Response(serializer.data, status=status.HTTP_201_CREATED)  # Return the saved data and 201 status code
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # Return errors if data is invalid
 
 @api_view(['POST'])
 def result(request):
