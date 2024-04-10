@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
-interface props {
+interface Props {
   choices: string[];
   label: string;
-  submitAction : (choice: string) => void;
+  submitAction: (choice: string) => void;
 }
 
-const Form: React.FC<props> = (props) => {
-  const { choices, label, submitAction } = props;
+const Form: React.FC<Props> = ({ choices, label, submitAction }) => {
   const [selectedChoice, setSelectedChoice] = useState<string>("");
 
   const handleChoiceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -20,12 +19,9 @@ const Form: React.FC<props> = (props) => {
   };
 
   return (
-    <>
     <form onSubmit={handleSubmit}>
-      <label >
-        <p className="text-lg font-bold">
-        {label}
-        </p>
+      <label>
+        <p className="text-lg font-bold">{label}</p>
         <select className="mb-3" value={selectedChoice} onChange={handleChoiceChange}>
           <option value="--"></option>
           {choices.map((choice, index) => (
@@ -36,10 +32,11 @@ const Form: React.FC<props> = (props) => {
         </select>
       </label>
       <p></p>
-      <button type="submit" className="bg-blue-500 text-white rounded py-2 px-4 mb-2" >Submit</button>
+      <button type="submit" className="bg-blue-500 text-white rounded py-2 px-4 mb-2">
+        Submit
+      </button>
     </form>
-    
-    </>);
+  );
 };
 
 export default Form;

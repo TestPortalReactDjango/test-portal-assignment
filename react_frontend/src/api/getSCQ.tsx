@@ -12,15 +12,16 @@ interface SCQ {
   correctOption: string;
 }
 
-interface props {
+interface Props {
   url: string;
+  submitUrl: 'http://127.0.0.1:8000/test/api/response_insert/';
 }
 
-const GetSCQ: React.FC<props> = (props) => {
-  const { url } = props;
+const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
   const [question, setQuestion] = useState<SCQ | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
 
   useEffect(() => {
     axios
@@ -35,13 +36,33 @@ const GetSCQ: React.FC<props> = (props) => {
       })
       .catch((ex) => {
         const error =
-          ex.response.status === 404
+          ex.response && ex.response.status === 404
             ? "Resource Not Found"
-            : "Unexpected Error Occurred";
+            : "An unexpected error occurred";
         setError(error);
         setLoading(false);
       });
-  }, []);
+  }, [url]);
+
+  const handleSubmit = () => {
+    if (question && selectedOption) {
+      // Construct the tuple with question and selected option
+      const solTuple: [number, string] = [question.pk, selectedOption];
+
+      axios.post(submitUrl, { sol: solTuple }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        alert("Response submitted successfully");
+      })
+      .catch((error) => {
+        console.error("Submission error:", error);
+        alert("Failed to submit response");
+      });
+    }
+  };
 
   return (
     <div>
@@ -51,8 +72,8 @@ const GetSCQ: React.FC<props> = (props) => {
         <p>{error}</p>
       ) : (
         question && (
-          <li key={question.pk}>
-            <p>Question Type: Single Option Correct Question Type</p>
+          <div key={question.pk}>
+            <p>Question Type: Single Choice Question</p>
             <p>Question: {question.question}</p>
             <p>A: {question.option1}</p>
             <p>B: {question.option2}</p>
@@ -66,9 +87,10 @@ const GetSCQ: React.FC<props> = (props) => {
                 question.option4,
               ]}
               label={"Answer:"}
-              submitAction={(choice: string) => {}}
+              submitAction={setSelectedOption}
             />
-          </li>
+            <button onClick={handleSubmit}>Submit Answer</button>
+          </div>
         )
       )}
     </div>

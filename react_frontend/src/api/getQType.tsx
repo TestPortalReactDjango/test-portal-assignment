@@ -54,16 +54,19 @@ const GetQType: React.FC<props> = (props) => {
             {QType.single !== null && (
               <GetSCQ
                 url={`http://127.0.0.1:8000/questions/singleRetrieve/${QType.single}`}
+                submitUrl="http://127.0.0.1:8000/test/api/response_insert/"
               />
             )}
             {QType.multiple !== null && (
               <GetMCQ
                 url={`http://127.0.0.1:8000/questions/multipleRetrieve/${QType.multiple}`}
+                submitUrl="http://127.0.0.1:8000/test/api/response_insert/"
               />
             )}
             {QType.integer !== null && (
               <GetIQ
                 url={`http://127.0.0.1:8000/questions/integerRetrieve/${QType.integer}`}
+                submitUrl="http://127.0.0.1:8000/test/api/response_insert/"
               />
             )}
           </ul>
