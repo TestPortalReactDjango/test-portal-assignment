@@ -55,22 +55,22 @@ def result(request):
         qid = serializer.get('qid')
         qt = serializer.get('qt')
 
-        def get_field_info_and_values(qt):
-            fields = ['single', 'multiple', 'integer']
-            record = qType.objects.filter(qt=qt).values_list(*fields, flat=False).first()
-            field_name = None
-            non_null_value = None
-            values_list = []
-            if record:
-                for field, value in zip(fields, record):
-                    values_list.append(value) 
-                    if value is not None and not field_name:
-                        field_name, non_null_value = field, value
-                return field_name, non_null_value, values_list
-            return None, None, values_list
-        field_name, value, values_list = get_field_info_and_values(qt)
+        # def get_field_info_and_values(qt):
+        #     fields = ['single', 'multiple', 'integer']
+        #     record = qType.objects.filter(qt=qt).values_list(*fields, flat=False).first()
+        #     field_name = None
+        #     non_null_value = None
+        #     values_list = []
+        #     if record:
+        #         for field, value in zip(fields, record):
+        #             values_list.append(value) 
+        #             if value is not None and not field_name:
+        #                 field_name, non_null_value = field, value
+        #         return field_name, non_null_value, values_list
+        #     return None, None, values_list
+        # field_name, value, values_list = get_field_info_and_values(qt)
 
-        if (field_name=='single'):
+        if (qt=='single'):
             correct_option = SingleCorrectQ.objects.values_list('correctOption', flat=True).get(pk=qid)
             sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
             if (correct_option== str(sol_value)):
@@ -88,7 +88,7 @@ def result(request):
                 tf=False
                 )
         
-        elif (field_name=='multiple'):
+        elif (qt=='multiple'):
             correct_option = MultipleCorrectQ.objects.values_list('correctOption', flat=True).get(pk=qid)
             sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
             if (correct_option== str(sol_value)):
@@ -106,7 +106,7 @@ def result(request):
                 tf=False
                 )
 
-        elif (field_name=='integer'):
+        elif (qt=='integer'):
             correct_option = IntegerTypeQ.objects.values_list('correctOption', flat=True).get(pk=qid)
             sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
             if (correct_option== int(sol_value)):
