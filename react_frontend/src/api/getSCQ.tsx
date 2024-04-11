@@ -46,10 +46,15 @@ const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
 
   const handleSubmit = () => {
     if (question && selectedOption) {
-      // Construct the tuple with question and selected option
-      const solTuple: [number, string] = [question.pk, selectedOption];
-
-      axios.post(submitUrl, { sol: solTuple }, {
+      const data = {
+        user: "UserID", 
+        test: "TestID", 
+        qid: question.pk,
+        qt: "SCQ", 
+        sol: [selectedOption], 
+      };
+  
+      axios.post(submitUrl, data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -63,6 +68,7 @@ const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
       });
     }
   };
+  
 
   return (
     <div>

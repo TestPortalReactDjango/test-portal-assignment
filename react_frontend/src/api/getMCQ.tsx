@@ -51,25 +51,37 @@ const GetMCQ: React.FC<Props> = ({ url, submitUrl }) => {
   };
 
   const handleSubmit = () => {
-    const payload = {
-      pk: question?.pk,
-      selectedOptions: selectedOptions,
-    };
-
-    axios.post(submitUrl, payload, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => {
-      console.log("Submission successful", response.data);
-      // Handle success
-    })
-    .catch((error) => {
-      console.error("Submission failed", error);
-      // Handle failure
-    });
+    if (question && selectedOptions.length > 0) {
+      // Create a tuple where the first element is the question pk
+      // and the second element is the array of selected options.
+      const solTuple = [selectedOptions];
+  
+      const data = {
+        user: "UserID", // Placeholder - adjust as necessary
+        test: "TestID", // Placeholder - adjust as necessary
+        qid: question.pk, // You might not need this separately since it's included in the tuple
+        qt: "MCQ", // Question type
+        sol: solTuple, // The tuple as the solution
+      };
+  
+      axios.post(submitUrl, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        alert("Response submitted successfully");
+      })
+      .catch((error) => {
+        console.error("Submission error:", error);
+        alert("Failed to submit response");
+      });
+    } else {
+      // Handle the case where no options are selected
+      alert("Please select at least one option before submitting.");
+    }
   };
+  
 
   const options = question ? [question.option1, question.option2, question.option3, question.option4] : [];
 

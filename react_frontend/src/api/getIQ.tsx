@@ -40,30 +40,34 @@ const GetIntegerTypeQ: React.FC<Props> = ({ url, submitUrl }) => {
 
   const handleSubmit = () => {
     if (question && response !== null) {
+      const solTuple = [question.pk, response];
+  
       const data = {
-        user: "UserID",
-        test: "TestID",
-        qid: question.pk,
+        user: "UserID", 
+        test: "TestID", 
+        qid : question.pk,
         qt: "IQ",
-        sol: response,
+        sol: solTuple, 
       };
-
-      axios
-        .post(submitUrl, data, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          alert("Response submitted successfully");
-        })
-        .catch((error) => {
-          console.error("Submission error:", error);
-          alert("Failed to submit response");
-        });
+  
+      axios.post(submitUrl, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(() => {
+        alert("Response submitted successfully");
+      })
+      .catch((error) => {
+        console.error("Submission error:", error);
+        alert("Failed to submit response");
+      });
+    } else {
+      // Handle the case where no response is provided
+      alert("Please enter a response before submitting.");
     }
   };
-
+  
   return (
     <div>
       {loading ? (
