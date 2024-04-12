@@ -1,10 +1,10 @@
 import React, { useContext,useState, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
-import { stringify } from "querystring";
+// import { stringify } from "querystring";
 import { TestContext } from "../context/TestContext";
 
-const obj = useContext(AuthContext);
+
 interface MCQ {
   pk: number;
   question: string;
@@ -25,7 +25,8 @@ const GetMCQ: React.FC<Props> = ({ url, submitUrl }) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  const testID = useContext(TestContext)
+  const testID = useContext(TestContext);
+  const obj = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -62,7 +63,7 @@ const GetMCQ: React.FC<Props> = ({ url, submitUrl }) => {
       const solTuple = [selectedOptions];
   
       const data = {
-        user: stringify(obj.user.user_id), // Placeholder - adjust as necessary
+        user: new URLSearchParams({user_id: obj.user.user_id}).toString(), // Placeholder - adjust as necessary
         test: testID, // Placeholder - adjust as necessary
         qid: question.pk, // You might not need this separately since it's included in the tuple
         qt: "MCQ", // Question type
