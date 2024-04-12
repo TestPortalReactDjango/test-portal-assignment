@@ -18,7 +18,7 @@ interface SCQ {
 
 interface Props {
   url: string;
-  submitUrl: 'http://127.0.0.1:8000/test/api/response_insert/';
+  submitUrl: string;
 }
 
 const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
@@ -49,8 +49,10 @@ const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
       });
   }, [url]);
 
-  const handleSubmit = () => {
-    if (question && selectedOption) {
+  const handleSubmit = (option:string) => {
+    setSelectedOption(option);
+    if (question) {
+      console.log("creating data")
       const data = {
         user: new URLSearchParams({user_id: obj.user.user_id}).toString(),
         test: testID, 
@@ -98,9 +100,8 @@ const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
                 question.option4,
               ]}
               label={"Answer:"}
-              submitAction={setSelectedOption}
+              submitAction={handleSubmit}
             />
-            <button onClick={handleSubmit}>Submit Answer</button>
           </div>
         )
       )}
