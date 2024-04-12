@@ -16,52 +16,56 @@ const GetUpcomingTests = () => {
     const [tests, setTests] = useState<Test[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null); // Corrected error type
-    const [marks,setMarks] = useState<number>()
+    const [marks, setMarks] = useState<number>()
 
-    useEffect(() => {
-        const fetchUpcomingTests = async () => {
-            try {
-                const response = await axios.get<Test[]>(
-                    "http://127.0.0.1:8000/test/api/tests/",
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-                console.log(response.data);
-                setTests(response.data);
-                setLoading(false);
-            } catch (error: any) {
-                const errorMessage = error.response?.status === 404
-                    ? "Resource Not Found"
-                    : "An unexpected error occurred";
-                setError(errorMessage);
-                setLoading(false);
-            }
-        };
 
-        fetchUpcomingTests();
+    const fetchUpcomingTests = async () => {
+        try {
+            const response = await axios.get<Test[]>(
+                "http://127.0.0.1:8000/test/api/tests/",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            console.log(response.data);
+            setTests(response.data);
+            setLoading(false);
+        } catch (error: any) {
+            const errorMessage = error.response?.status === 404
+                ? "Resource Not Found"
+                : "An unexpected error occurred";
+            setError(errorMessage);
+            setLoading(false);
+        }
+    };
+
+    // fetchUpcomingTests();
+    const obj = useContext(AuthContext);
+    const testID = useContext(TestContext);
+    const fetchmarks = async () => {
         
-        const fetchmarks = async()=>{
-            const obj = useContext(AuthContext);
-            const testID = useContext(TestContext);
-            const userdata={
-                user: new URLSearchParams({user_id: obj.user.user_id}).toString(),
-                test:testID
-            }
-            try{
-                const resp = await axios.post("http://127.0.0.1:8000/test/api/calc_marks/",userdata)
-                .then((resp)=>{
+        const userdata = {
+            user: new URLSearchParams({ user_id: obj.user.user_id }).toString(),
+            test: testID
+        }
+        try {
+            const resp = await axios.post("http://127.0.0.1:8000/test/api/calc_marks/", userdata)
+                .then((resp) => {
                     setMarks(resp.data.marks)
                 })
-            }
-            catch(error){
-                console.log("failed to fetch marks!")
-            }
         }
+        catch (error) {
+            console.log("failed to fetch marks!")
+        }
+    }
+    // fetchmarks();
+
+    useEffect(()=>{
+        fetchUpcomingTests();
         fetchmarks();
-    }, []);
+    },[]);
 
 
     // const current_time = new Date();
@@ -94,10 +98,10 @@ const GetUpcomingTests = () => {
                                     <span className="detail-label">End Time:</span>
                                     {test.endTime.toLocaleString()}
                                 </p>
-                                    <p>
-                                        <span className="detail-label">Marks:</span>
-                                        {marks}
-                                    </p>
+                                <p>
+                                    <span className="detail-label">Marks:</span>
+                                    {marks}
+                                </p>
                             </div>
                         </li>
                     ))}
