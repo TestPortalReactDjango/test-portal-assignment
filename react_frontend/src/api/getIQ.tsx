@@ -12,7 +12,7 @@ interface IntegerTypeQ {
 
 interface Props {
   url: string;
-  submitUrl: 'http://127.0.0.1:8000/test/api/response_insert/';
+  submitUrl: string;
 }
 
 const GetIntegerTypeQ: React.FC<Props> = ({ url, submitUrl }) => {
