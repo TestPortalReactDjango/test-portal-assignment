@@ -36,14 +36,13 @@ class TestView(generics.ListCreateAPIView):
     def get_queryset(self):
         return test.objects.all()
     
-@api_view(['POST'])
-def response_insert(request):
-    # Instead of manually loading the JSON, we use request.data with DRF
-    serializer = userresponsesSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()  # Save the instance if the data is valid
-        return Response(serializer.data, status=status.HTTP_201_CREATED)  # Return the saved data and 201 status code
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # Return errors if data is invalid
+# @api_view(['POST'])
+# def response_insert(request):
+#     serializer = userresponsesSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save() 
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)  # Return the saved data and 201 status code
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
 
 @api_view(['POST'])
 def result(request):
@@ -54,6 +53,7 @@ def result(request):
         test = serializer.get('test')
         qid = serializer.get('qid')
         qt = serializer.get('qt')
+        sol_value = serializer.get('sol')
 
         # def get_field_info_and_values(qt):
         #     fields = ['single', 'multiple', 'integer']
@@ -72,8 +72,8 @@ def result(request):
 
         if (qt=='single'):
             correct_option = SingleCorrectQ.objects.values_list('correctOption', flat=True).get(pk=qid)
-            sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
-            if (correct_option== str(sol_value)):
+            # sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
+            if (correct_option== sol_value):
                 user_response = testresult.objects.create(
                 user=user,
                 test=test,
@@ -90,8 +90,8 @@ def result(request):
         
         elif (qt=='multiple'):
             correct_option = MultipleCorrectQ.objects.values_list('correctOption', flat=True).get(pk=qid)
-            sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
-            if (correct_option== str(sol_value)):
+            # sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
+            if (correct_option== sol_value):
                 user_response = testresult.objects.create(
                 user=user,
                 test=test,
@@ -108,8 +108,8 @@ def result(request):
 
         elif (qt=='integer'):
             correct_option = IntegerTypeQ.objects.values_list('correctOption', flat=True).get(pk=qid)
-            sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
-            if (correct_option== int(sol_value)):
+            # sol_value = userresponses.objects.values_list('sol', flat=True).get(qid=qid,user=user,test=test)
+            if (correct_option== sol_value):
                 user_response = testresult.objects.create(
                 user=user,
                 test=test,
@@ -129,7 +129,6 @@ def result(request):
 
 @api_view(['POST'])
 def calculate_marks(request):
-    # """Calculates marks based on user and test data."""
 
     serializer = marksSerializer(data=request.data)
 
@@ -141,14 +140,14 @@ def calculate_marks(request):
     user = serializer.validated_data['user']
     test = serializer.validated_data['test']
 
-    # Check if user and test exist (optional, customize logic)
     if not User.objects.filter(pk=user.id).exists() or not testresult.objects.filter(pk=test.id).exists():
         return Response({'error': 'Invalid user or test ID'}, status=status.HTTP_400_BAD_REQUEST)
 
     tf_list = list(testresult.objects.filter(user=user, test=test).values_list('tf', flat=True))
-    total_marks = sum(mark for mark in tf_list if mark)  # Calculate total marks from True values
+    total_marks = sum(mark for mark in tf_list if mark) 
 
     new_marks = Marks.objects.create(user=user, test=test, result=total_marks)
 
     return Response({"marks": new_marks.result})    
 
+ 
