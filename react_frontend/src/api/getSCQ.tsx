@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Form from "../components/Form";
+import AuthContext from "../context/AuthContext";
+import { stringify } from "querystring";
+import { TestContext } from "../context/TestContext";
+const obj = useContext(AuthContext);
 
 interface SCQ {
   pk: number;
@@ -22,7 +26,7 @@ const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<string>("");
-
+  const testID = useContext(TestContext)
   useEffect(() => {
     axios
       .get<SCQ>(url, {
@@ -47,8 +51,8 @@ const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
   const handleSubmit = () => {
     if (question && selectedOption) {
       const data = {
-        user: "UserID", 
-        test: "TestID", 
+        user: stringify(obj.user.user_id), 
+        test: testID, 
         qid: question.pk,
         qt: "SCQ", 
         sol: [selectedOption], 

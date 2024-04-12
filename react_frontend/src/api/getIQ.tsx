@@ -1,6 +1,10 @@
-import React, { useState , useEffect} from "react";
+import React, { useContext, useState , useEffect} from "react";
 import axios from "axios";
+import AuthContext from "../context/AuthContext";
+import { TestContext } from "../context/TestContext";
+import { stringify } from "querystring";
 
+const obj = useContext(AuthContext);
 interface IntegerTypeQ {
   pk: number;
   question: string;
@@ -16,7 +20,7 @@ const GetIntegerTypeQ: React.FC<Props> = ({ url, submitUrl }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [response, setResponse] = useState<number | null>(null);
-
+  const testID = useContext(TestContext);
   useEffect(() => {
     axios
       .get<IntegerTypeQ>(url, {
@@ -43,8 +47,8 @@ const GetIntegerTypeQ: React.FC<Props> = ({ url, submitUrl }) => {
       const solTuple = [question.pk, response];
   
       const data = {
-        user: "UserID", 
-        test: "TestID", 
+        user: stringify(obj.user.user_id), 
+        test: testID, 
         qid : question.pk,
         qt: "IQ",
         sol: solTuple, 

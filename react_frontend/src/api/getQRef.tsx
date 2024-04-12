@@ -116,6 +116,7 @@ const GetQRef: React.FC<props> = (props) => {
                 i !== null && (
                   <GetQType
                     url={`http://127.0.0.1:8000/questions/qtypeRetrieve/${i}/`}
+                    // testID ={testID}
                   />
                 )
             )

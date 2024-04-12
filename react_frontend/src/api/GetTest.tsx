@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext,useState, useEffect } from "react";
 import axios from "axios";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link , useNavigate  } from "react-router-dom";
 import GetQRef from "./getQRef";
+// import { Redirect\\\\ } from "react-router";
+import { TestContext } from "../context/TestContext";
+import { TestProvider } from "../context/TestContext";
+// const  TestProvider } = require("../context/TestContext");
 
 interface Test {
   pk: number;
@@ -23,6 +27,8 @@ const GetTest: React.FC = () => {
   const [error, setError]: [string, (error: string) => void] = useState("");
   const [selectedTest, setTest]: [nullTest, (selectedTest: nullTest) => void] =
     useState<nullTest>(null);
+    const navigate = useNavigate();
+  // const history = useHistory();
   useEffect(() => {
     axios
       .get<Test[]>("http://127.0.0.1:8000/test/api/tests/", {
@@ -43,9 +49,47 @@ const GetTest: React.FC = () => {
         setLoading(false);
       });
   }, []);
-  console.log(tests)
+
+  const { selectedTestPk, setSelectedTestPk } = useContext(TestContext) || { selectedTestPk: null, setSelectedTestPk: () => {} };
+
+  const handleFinalSubmit = async () => {
+    // Assuming you have a mechanism to collect user answers (selectedAnswers)
+    if (!selectedTest) {
+      alert("Please select a test to submit.");
+      return;
+    }
+
+    const testData = {
+      user: "UserID", // Replace with actual user ID
+      test: selectedTest.pk,
+      // Add user answers here (replace with your logic)
+      // answers: selectedAnswers, // Replace with your answer collection logic
+    };
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/test/api/calc_marks/", // Replace with your endpoint
+        testData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const marks = response.data.marks; // Assuming 'marks' is returned by the API
+      alert("Test submitted successfully! Your marks are: " + marks); // Display marks
+      navigate("/studentUpcomingTest");
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Failed to submit test. Please try again.");
+    }
+  };
+
+  
   return (
     <div>
+      <TestProvider>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -55,8 +99,13 @@ const GetTest: React.FC = () => {
           {
             <GetQRef
               url={`http://127.0.0.1:8000/questions/qrefRetrieve/${selectedTest.qRefTable}`}
+            // testId = {test.pk}
             />
           }
+          <Button
+            text="Submit Test (Final Marks)"
+            onClick={handleFinalSubmit} // Pass the onClick handler function
+          />
         </>
       ) : (
         <ul>
@@ -86,6 +135,7 @@ const GetTest: React.FC = () => {
             ))}
         </ul>
       )}
+      </TestProvider>
     </div>
   );
 };
