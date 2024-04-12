@@ -6,6 +6,8 @@ import GetQRef from "./getQRef";
 // import { Redirect\\\\ } from "react-router";
 import { TestContext } from "../context/TestContext";
 import { TestProvider } from "../context/TestContext";
+import AuthContext from "../context/AuthContext";
+
 // const  TestProvider } = require("../context/TestContext");
 
 interface Test {
@@ -29,6 +31,7 @@ const GetTest: React.FC = () => {
     useState<nullTest>(null);
     const navigate = useNavigate();
   // const history = useHistory();
+  const obj=useContext(AuthContext);
   useEffect(() => {
     axios
       .get<Test[]>("http://127.0.0.1:8000/test/api/tests/", {
@@ -53,14 +56,15 @@ const GetTest: React.FC = () => {
   const { selectedTestPk, setSelectedTestPk } = useContext(TestContext) || { selectedTestPk: null, setSelectedTestPk: () => {} };
 
   const handleFinalSubmit = async () => {
+    console.log()
     // Assuming you have a mechanism to collect user answers (selectedAnswers)
     if (!selectedTest) {
       alert("Please select a test to submit.");
       return;
     }
-
+    console.log(obj.user.user_id,selectedTest.pk);
     const testData = {
-      user: "UserID", // Replace with actual user ID
+      user: obj.user.user_id, // Replace with actual user ID
       test: selectedTest.pk,
       // Add user answers here (replace with your logic)
       // answers: selectedAnswers, // Replace with your answer collection logic
@@ -102,10 +106,10 @@ const GetTest: React.FC = () => {
             // testId = {test.pk}
             />
           }
-          <Button
-            text="Submit Test (Final Marks)"
-            onClick={handleFinalSubmit} // Pass the onClick handler function
-          />
+          <button className="bg-blue-500 text-white rounded py-2 px-4 mb-2" onClick={handleFinalSubmit} // Pass the onClick handler function
+>Submit Test</button>
+            
+          
         </>
       ) : (
         <ul>
