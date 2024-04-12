@@ -17,7 +17,7 @@ const StudentProfile: React.FC = () => {
   return (
     <div>
       <NavigationBar />
-      {user.image && <img src="../assets/icons/man-avatar-profile-picture-vector-illustration_268834-538.avif" alt="Profile Image" />}
+      {<img src="../assets/icons/man-avatar-profile-picture-vector-illustration_268834-538.png" alt="Profile Image" />}
       <h1>Username : {user.username}</h1>
       <p>Email : {user.email}</p>
     </div>
