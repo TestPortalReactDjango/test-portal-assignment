@@ -47,6 +47,7 @@ class TestView(generics.ListCreateAPIView):
 @api_view(['POST'])
 def result(request):
     serializer = userresponsesSerializer(data=request.data)
+    print(request.data)
     if serializer.is_valid():
         serializer.save()
         user = serializer.get('user')
@@ -125,7 +126,7 @@ def result(request):
                 )
         return  Response(status=status.HTTP_202_ACCEPTED)
     else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def calculate_marks(request):

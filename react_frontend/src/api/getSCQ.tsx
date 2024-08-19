@@ -53,13 +53,22 @@ const GetSCQ: React.FC<Props> = ({ url, submitUrl }) => {
     setSelectedOption(option);
     if (question) {
       console.log("creating data")
+      console.log(testID)
+      const selectedIndex = question.option1 === option
+        ? 0
+        : question.option2 === option
+          ? 1
+          : question.option3 === option
+            ? 2
+            : 3;
       const data = {
-        user: new URLSearchParams({user_id: obj.user.user_id}).toString(),
-        test: testID, 
+        user:obj.user.user_id.toString(),
+        test: testID.selectedTestPk, 
         qid: question.pk,
         qt: "SCQ", 
-        sol: [selectedOption], 
+        sol: [(selectedIndex + 1)].toString, 
       };
+      console.log(data.sol);
   
       axios.post(submitUrl, data, {
         headers: {

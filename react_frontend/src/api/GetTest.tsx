@@ -32,6 +32,7 @@ const GetTest: React.FC = () => {
     const navigate = useNavigate();
   // const history = useHistory();
   const obj=useContext(AuthContext);
+  const { selectedTestPk, setSelectedTestPk } = useContext(TestContext) || { selectedTestPk: null, setSelectedTestPk: () => {} };
   useEffect(() => {
     axios
       .get<Test[]>("http://127.0.0.1:8000/test/api/tests/", {
@@ -53,7 +54,7 @@ const GetTest: React.FC = () => {
       });
   }, []);
 
-  const { selectedTestPk, setSelectedTestPk } = useContext(TestContext) || { selectedTestPk: null, setSelectedTestPk: () => {} };
+  
 
   const handleFinalSubmit = async () => {
     console.log()
@@ -130,6 +131,7 @@ const GetTest: React.FC = () => {
                     className="bg-blue-500 text-white rounded py-2 px-4 mb-2"
                     onClick={() => {
                       setTest(test);
+                      setSelectedTestPk(test.pk);
                     }}
                   >
                     Start Test
