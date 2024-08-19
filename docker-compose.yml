@@ -1,0 +1,13 @@
+# version: 
+services:
+  backend:
+    build:
+      context: ./django_backend
+      dockerfile: Dockerfile
+
+  
+  frontend:
+    build:
+      context: ./react_frontend
+      dockerfile: Dockerfile
+      
