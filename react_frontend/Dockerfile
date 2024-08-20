@@ -1,4 +1,4 @@
-FROM node:22-latest
+FROM node:18-alpine
 WORKDIR /react_frontend
 COPY ./package.json .
 RUN npm install
