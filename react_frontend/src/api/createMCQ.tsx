@@ -15,6 +15,7 @@ const CreateMCQ= async (MCQ:MCQ):Promise<number>=> {
   const { question, option1, option2, option3, option4, correctOptions } = MCQ;
   try {
     const response = await axios
+      //Creating a multiple correct question object
       .post(
         "http://127.0.0.1:8000/questions/multiple/",
         {

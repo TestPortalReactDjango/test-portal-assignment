@@ -12,7 +12,7 @@ const SignUpPage: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        registerUser(email, username, password, password2);
+        registerUser(email, username, password, password2); //implement registration feature
     };
 
     return (

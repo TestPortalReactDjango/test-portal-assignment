@@ -13,7 +13,7 @@ interface Response {
 const CreateQRef = async (props: props): Promise<Response> => {
   const { arrqType } = props;
 
-
+  //fetching question reference table objects
   try {
     const response = await axios.post(
       "http://127.0.0.1:8000/questions/qref/",

@@ -58,16 +58,14 @@ const GetMCQ: React.FC<Props> = ({ url, submitUrl }) => {
 
   const handleSubmit = () => {
     if (question && selectedOptions.length > 0) {
-      // Create a tuple where the first element is the question pk
-      // and the second element is the array of selected options.
       const solTuple = [selectedOptions];
   
       const data = {
-        user: new URLSearchParams({user_id: obj.user.user_id}).toString(), // Placeholder - adjust as necessary
-        test: testID, // Placeholder - adjust as necessary
-        qid: question.pk, // You might not need this separately since it's included in the tuple
-        qt: "MCQ", // Question type
-        sol: solTuple, // The tuple as the solution
+        user: new URLSearchParams({user_id: obj.user.user_id}).toString(), 
+        test: testID, 
+        qid: question.pk, 
+        qt: "MCQ", 
+        sol: solTuple, 
       };
   
       axios.post(submitUrl, data, {

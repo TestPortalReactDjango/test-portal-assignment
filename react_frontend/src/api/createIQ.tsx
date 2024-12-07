@@ -8,6 +8,7 @@ interface IQ {
 
 const CreateIQ =async (IQ : IQ) : Promise<number>  => {
   const { question, correctOption } = IQ;
+    //Creating a integer type question object
   try {
     const response = await axios
       .post(

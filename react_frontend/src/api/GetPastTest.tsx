@@ -20,6 +20,7 @@ const GetUpcomingTests = () => {
 
 
     const fetchUpcomingTests = async () => {
+        //fetching past tests from backend
         try {
             const response = await axios.get<Test[]>(
                 "http://127.0.0.1:8000/test/api/tests/",
@@ -44,6 +45,8 @@ const GetUpcomingTests = () => {
     // fetchUpcomingTests();
     const obj = useContext(AuthContext);
     const testID = useContext(TestContext);
+
+    //fetching marks
     const fetchmarks = async () => {
         
         const userdata = {
