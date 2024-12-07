@@ -90,6 +90,7 @@ const GetQ: React.FC<props> = (props) => {
   const [mcqs, setmcqs]: [MCQ[], (mcqs: MCQ[]) => void] = useState(MCQs);
   const [iqs, setiqs]: [IQ[], (iqs: IQ[]) => void] = useState(IQs);
   useEffect(() => {
+    //fetching single correct questions
     axios
       .get<SCQ[]>("http://127.0.0.1:8000/questions/single/", {
         headers: {
@@ -101,6 +102,7 @@ const GetQ: React.FC<props> = (props) => {
       });
   }, []);
   useEffect(() => {
+    //fetching multiple correct questions
     axios
       .get<MCQ[]>("http://127.0.0.1:8000/questions/multiple/", {
         headers: {
@@ -112,6 +114,7 @@ const GetQ: React.FC<props> = (props) => {
       });
   }, []);
   useEffect(() => {
+    //fetching integer type questions
     axios
       .get<IQ[]>("http://127.0.0.1:8000/questions/integer/", {
         headers: {

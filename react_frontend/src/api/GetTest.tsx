@@ -33,6 +33,8 @@ const GetTest: React.FC = () => {
   // const history = useHistory();
   const obj=useContext(AuthContext);
   const { selectedTestPk, setSelectedTestPk } = useContext(TestContext) || { selectedTestPk: null, setSelectedTestPk: () => {} };
+  
+  //fetching the tests from backend
   useEffect(() => {
     axios
       .get<Test[]>("http://127.0.0.1:8000/test/api/tests/", {
@@ -58,19 +60,17 @@ const GetTest: React.FC = () => {
 
   const handleFinalSubmit = async () => {
     console.log()
-    // Assuming you have a mechanism to collect user answers (selectedAnswers)
     if (!selectedTest) {
       alert("Please select a test to submit.");
       return;
     }
     console.log(obj.user.user_id,selectedTest.pk);
     const testData = {
-      user: obj.user.user_id, // Replace with actual user ID
+      user: obj.user.user_id,
       test: selectedTest.pk,
-      // Add user answers here (replace with your logic)
-      // answers: selectedAnswers, // Replace with your answer collection logic
     };
 
+    //handling test submission
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/test/api/calc_marks/", // Replace with your endpoint
@@ -82,8 +82,8 @@ const GetTest: React.FC = () => {
         }
       );
 
-      const marks = response.data.marks; // Assuming 'marks' is returned by the API
-      alert("Test submitted successfully! Your marks are: " + marks); // Display marks
+      const marks = response.data.marks; 
+      alert("Test submitted successfully! Your marks are: " + marks); 
       navigate("/studentUpcomingTest");
     } catch (error) {
       console.error("Submission error:", error);
@@ -107,7 +107,7 @@ const GetTest: React.FC = () => {
             // testId = {test.pk}
             />
           }
-          <button className="bg-blue-500 text-white rounded py-2 px-4 mb-2" onClick={handleFinalSubmit} // Pass the onClick handler function
+          <button className="bg-blue-500 text-white rounded py-2 px-4 mb-2" onClick={handleFinalSubmit} 
 >Submit Test</button>
             
           

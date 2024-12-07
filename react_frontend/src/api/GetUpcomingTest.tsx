@@ -17,6 +17,7 @@ const GetUpcomingTests = () => {
 
   useEffect(() => {
     const fetchUpcomingTests = async () => {
+      //fetching tests from backend
       try {
         const response = await axios.get<Test[]>(
           "http://127.0.0.1:8000/test/api/tests/",

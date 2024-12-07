@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
         const password = e.currentTarget.password.value;
 
         if (email.length > 0) {
-            loginUser(email, password);
+            loginUser(email, password); //implement login feature
         }
 
         console.log(email);

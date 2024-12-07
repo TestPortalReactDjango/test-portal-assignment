@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
 
     const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
+    //sending login credentials to backend
     const loginUser = async (email, password) => {
         const response = await fetch("http://127.0.0.1:8000/token/", {
             method: "POST",
@@ -72,6 +73,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
     
+    //sending registration credentials to backend
     const registerUser = async (email, username, password, password2) => {
         const response = await fetch("http://127.0.0.1:8000/register/", {
             method: "POST",
@@ -108,6 +110,7 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    //implementing logout feature
     const logoutUser = () => {
         setAuthTokens(null)
         setUser(null)

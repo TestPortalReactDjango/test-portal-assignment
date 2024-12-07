@@ -12,6 +12,7 @@ interface SCQ {
 
 const CreateSCQ= async (SCQ:SCQ): Promise<number> =>{
   const {question,option1,option2,option3,option4,correctOption}=SCQ;
+  //Creating a single correct question object
   try {
     const response = await axios
     .post(
